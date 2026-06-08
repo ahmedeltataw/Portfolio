@@ -9,7 +9,7 @@ export const siteConfig: SiteConfig = {
   ogImage: "/og.jpg",
   links: {
     github: "https://github.com/ahmedeltataw",
-    linkedin: "https://linkedin.com/in/", // ← عايز الـ handle
+    linkedin: "https://www.linkedin.com/in/ahmed-eltatawy/",
     behance: "https://behance.net/",       // ← عايز الـ handle
   },
   email: "eltatawea@gmail.com",
