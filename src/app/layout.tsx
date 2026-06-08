@@ -1,6 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { siteConfig } from "@/lib/constants";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
+import { SmoothScroll } from "@/components/shared/smooth-scroll";
+import { PageTransition } from "@/components/shared/page-transition";
+import "@/lib/gsap-register";
 import "./globals.css";
 
 const inter = Inter({
@@ -82,7 +87,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfairDisplay.variable} font-sans antialiased`}
       >
-        {children}
+        <Navbar />
+        <SmoothScroll>
+          <main className="min-h-screen pt-16">
+            <PageTransition>{children}</PageTransition>
+          </main>
+        </SmoothScroll>
+        <Footer />
       </body>
     </html>
   );
