@@ -32,11 +32,8 @@ export function AboutClient() {
           واجهات تفاعلية جميلة وسهلة الاستخدام باستخدام أحدث التقنيات.
         </p>
         <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            alert("CV download coming soon");
-          }}
+          href="/cv.pdf"
+          download
           className="mt-6 inline-flex h-11 items-center justify-center rounded-md border border-border bg-card px-6 text-sm font-medium transition-colors hover:bg-accent gap-2"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

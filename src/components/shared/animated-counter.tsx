@@ -53,7 +53,7 @@ export function AnimatedCounter({
 
   return (
     <span ref={elRef} className={className}>
-      {from}{suffix}
+      {suffix}
     </span>
   );
 }

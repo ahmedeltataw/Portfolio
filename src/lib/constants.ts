@@ -5,14 +5,14 @@ export const siteConfig: SiteConfig = {
   name: "احمد",
   title: "UI/UX Designer & Frontend Developer",
   description: "Portfolio شخصي يعرض مشاريعي في UI/UX Design و Frontend Development",
-  url: "https://portfolio-2026.vercel.app",
-  ogImage: "https://portfolio-2026.vercel.app/og.jpg",
+  url: "https://portfolio-sigma-beige-82.vercel.app",
+  ogImage: "/og.jpg",
   links: {
-    github: "https://github.com/username",
-    linkedin: "https://linkedin.com/in/username",
-    behance: "https://behance.net/username",
+    github: "https://github.com/ahmedeltataw",
+    linkedin: "https://linkedin.com/in/", // ← عايز الـ handle
+    behance: "https://behance.net/",       // ← عايز الـ handle
   },
-  email: "hello@example.com",
+  email: "eltatawea@gmail.com",
   location: "مصر",
   availability: "مفتوح للفرص",
 };

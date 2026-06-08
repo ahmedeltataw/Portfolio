@@ -44,12 +44,13 @@ export function Hero() {
       </Parallax>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-2xl">
+        <h1 className="sr-only">{siteConfig.name}</h1>
         <p className="hero-subtitle mb-4 text-sm font-medium text-primary tracking-widest uppercase">
           {siteConfig.availability}
         </p>
         <TextReveal
           className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight"
-          as="h1"
+          as="span"
         >
           {siteConfig.name}
         </TextReveal>
