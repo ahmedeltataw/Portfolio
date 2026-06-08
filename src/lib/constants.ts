@@ -4,7 +4,7 @@ import type { SiteConfig } from "@/types";
 export const siteConfig: SiteConfig = {
   name: "احمد",
   title: "UI/UX Designer & Frontend Developer",
-  description: "Portfolio شخصي يعرض مشاريعي في UI/UX Design و Frontend Development",
+  description: "بورتفوليو شخصي يعرض مشاريعي في تصميم واجهات المستخدم (UI/UX) وتطوير الواجهات الأمامية (Frontend)",
   url: "https://portfolio-sigma-beige-82.vercel.app",
   ogImage: "/og.jpg",
   links: {

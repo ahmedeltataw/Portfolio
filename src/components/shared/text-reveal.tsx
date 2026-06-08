@@ -10,6 +10,11 @@ interface TextRevealProps {
   delay?: number;
 }
 
+/** Detect if text contains Arabic/Persian/Urdu characters */
+function hasRtlChars(text: string): boolean {
+  return /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/.test(text);
+}
+
 export function TextReveal({
   children,
   className = "",
@@ -23,14 +28,38 @@ export function TextReveal({
     if (!el) return;
 
     const text = el;
-    const chars = text.textContent || "";
-    const wrapped = chars
-      .split("")
-      .map((char) => `<span class="inline-block char">${char === " " ? "&nbsp;" : char}</span>`)
-      .join("");
+    const rawText = text.textContent || "";
+    const isRtl = hasRtlChars(rawText);
 
-    text.innerHTML = wrapped;
+    if (isRtl) {
+      // Arabic/RTL: split by words instead of characters
+      // to preserve letter connections and RTL flow
+      const words = rawText.split(/(\s+)/);
+      const wrapped = words
+        .map((word) => {
+          if (word.trim() === "") return word; // preserve whitespace
+          return `<span class="inline-block char word-char">${word}</span>`;
+        })
+        .join("");
 
+      text.innerHTML = wrapped;
+      text.setAttribute("dir", "rtl");
+    } else {
+      // Latin/LTR: character-level split (original behavior)
+      const chars = rawText.split("");
+      const wrapped = chars
+        .map((char) =>
+          char === " "
+            ? `<span class="inline-block char">&nbsp;</span>`
+            : `<span class="inline-block char">${char}</span>`
+        )
+        .join("");
+
+      text.innerHTML = wrapped;
+      text.removeAttribute("dir");
+    }
+
+    // Apply GSAP animation
     const ctx = gsap.context(() => {
       gsap.fromTo(
         text.querySelectorAll(".char"),
@@ -40,7 +69,7 @@ export function TextReveal({
           y: 0,
           rotateX: 0,
           duration: 0.6,
-          stagger: 0.02,
+          stagger: isRtl ? 0.04 : 0.02, // slightly slower stagger for words
           delay,
           ease: "power3.out",
           scrollTrigger: {
