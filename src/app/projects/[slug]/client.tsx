@@ -5,12 +5,15 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import type { Project } from "@/types";
 import { projects } from "@/data/projects";
+import { useLanguage } from "@/contexts/language-context";
+import { ImageGallery } from "@/components/shared/image-gallery";
 
 interface ProjectDetailClientProps {
   project: Project;
 }
 
 export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const currentIndex = projects.findIndex((p) => p.id === project.id);
@@ -39,7 +42,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
           <line x1="19" y1="12" x2="5" y2="12" />
           <polyline points="12 19 5 12 12 5" />
         </svg>
-        Back to Projects
+        {t.projects.back}
       </Link>
 
       <div className="detail-animate mb-8 flex flex-wrap gap-2">
@@ -65,13 +68,17 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
       </p>
 
       <div className="detail-animate mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-        <span className="font-medium text-foreground">Role:</span> {project.role}
+        <span className="font-medium text-foreground">{t.projects.role}:</span> {project.role}
         <span className="mx-2">|</span>
-        <span className="font-medium text-foreground">Timeline:</span> {project.timeline}
+        <span className="font-medium text-foreground">{t.projects.timeline}:</span> {project.timeline}
       </div>
 
       <div className="detail-animate mt-12">
-        <h2 className="font-display text-xl mb-4">Tools & Technologies</h2>
+        <ImageGallery images={project.images} projectTitle={project.title} />
+      </div>
+
+      <div className="detail-animate mt-12">
+        <h2 className="font-display text-xl mb-4">{t.projects.tools}</h2>
         <div className="flex flex-wrap gap-2">
           {project.tools.map((tool) => (
             <span
@@ -85,7 +92,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
       </div>
 
       <div className="detail-animate mt-12">
-        <h2 className="font-display text-xl mb-4">Key Highlights</h2>
+        <h2 className="font-display text-xl mb-4">{t.projects.highlights}</h2>
         <ul className="flex flex-col gap-3">
           {project.highlights.map((highlight, index) => (
             <li key={index} className="flex items-start gap-3 text-muted-foreground">
@@ -125,7 +132,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
             href={`/projects/${prevProject.slug}`}
             className="group flex flex-col gap-1"
           >
-            <span className="text-xs text-muted-foreground">Previous</span>
+            <span className="text-xs text-muted-foreground">{t.projects.prev}</span>
             <span className="text-sm font-medium group-hover:text-primary transition-colors">
               {prevProject.title}
             </span>
@@ -138,7 +145,7 @@ export function ProjectDetailClient({ project }: ProjectDetailClientProps) {
             href={`/projects/${nextProject.slug}`}
             className="group flex flex-col items-end gap-1"
           >
-            <span className="text-xs text-muted-foreground">Next</span>
+            <span className="text-xs text-muted-foreground">{t.projects.next}</span>
             <span className="text-sm font-medium group-hover:text-primary transition-colors">
               {nextProject.title}
             </span>

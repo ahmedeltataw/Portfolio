@@ -5,6 +5,7 @@ import { TimelineItem } from "@/components/shared/timeline-item";
 import { SkillBar } from "@/components/shared/skill-bar";
 import { AnimatedCounter } from "@/components/shared/animated-counter";
 import { Parallax } from "@/components/shared/parallax";
+import { useLanguage } from "@/contexts/language-context";
 
 const SKILL_CATEGORIES = [
   { key: "frontend" as const, label: "Frontend" },
@@ -13,6 +14,7 @@ const SKILL_CATEGORIES = [
 ];
 
 export function AboutClient() {
+  const { t } = useLanguage();
   const initials = siteConfig.name.slice(0, 2);
 
   return (
@@ -28,8 +30,7 @@ export function AboutClient() {
         </h1>
         <p className="mt-2 text-lg text-muted-foreground">{siteConfig.title}</p>
         <p className="mt-6 max-w-lg text-muted-foreground leading-relaxed">
-          مطور واجهات مستخدم وشغوف بتصميم تجارب رقمية مميزة. أحوِّل الأفكار إلى
-          واجهات تفاعلية جميلة وسهلة الاستخدام باستخدام أحدث التقنيات.
+          {t.about.description}
         </p>
         <a
           href="/cv.pdf"
@@ -41,12 +42,12 @@ export function AboutClient() {
             <polyline points="7 10 12 15 17 10" />
             <line x1="12" y1="15" x2="12" y2="3" />
           </svg>
-          Download CV
+          {t.about.download_cv}
         </a>
       </div>
 
       <div className="mb-20">
-        <h2 className="font-display text-2xl mb-8 text-center">الخبرات</h2>
+        <h2 className="font-display text-2xl mb-8 text-center">{t.about.experiences_title}</h2>
         <div className="max-w-2xl mx-auto">
           {experiences.map((exp, index) => (
             <TimelineItem key={exp.id} experience={exp} index={index} />
@@ -56,7 +57,7 @@ export function AboutClient() {
 
       <div>
         <h2 className="font-display text-2xl mb-8 text-center">
-          المهارات <AnimatedCounter from={0} to={12} suffix="+" className="text-primary" />
+          {t.about.skills_title} <AnimatedCounter from={0} to={12} suffix="+" className="text-primary" />
         </h2>
         <div className="grid gap-10 md:grid-cols-3">
           {SKILL_CATEGORIES.map((cat) => (

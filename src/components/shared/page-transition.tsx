@@ -25,8 +25,8 @@ export function PageTransition({ children }: PageTransitionProps) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el,
-        { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
+        { opacity: 0, y: 12, scale: 0.98 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }
       );
     });
 

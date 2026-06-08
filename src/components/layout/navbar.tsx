@@ -6,19 +6,21 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/constants";
-
-const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
+import { useLanguage } from "@/contexts/language-context";
 
 export function Navbar() {
   const pathname = usePathname();
+  const { t, locale, setLocale } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  const NAV_LINKS = [
+    { href: "/", label: t.nav.home },
+    { href: "/projects", label: t.nav.projects },
+    { href: "/about", label: t.nav.about },
+    { href: "/contact", label: t.nav.contact },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,11 +44,11 @@ export function Navbar() {
         !isVisible && "-translate-y-full"
       )}
     >
-      <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4" aria-label="القائمة الرئيسية">
+      <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4" aria-label={t.nav_menu_open}>
         <Link
           href="/"
           className="font-display text-xl tracking-tight hover:text-primary transition-colors"
-          aria-label="الصفحة الرئيسية"
+          aria-label={t.nav.home}
         >
           {siteConfig.name}
         </Link>
@@ -71,17 +73,31 @@ export function Navbar() {
               </Link>
             );
           })}
-          <div className="ml-2">
+          <div className="ml-2 flex items-center gap-1">
+            <button
+              onClick={() => setLocale(locale === "ar" ? "en" : "ar")}
+              className="flex h-9 w-9 items-center justify-center rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+              aria-label={t.lang_switch}
+            >
+              {locale === "ar" ? "EN" : "AR"}
+            </button>
             <ThemeToggle />
           </div>
         </div>
 
         <div className="flex md:hidden items-center gap-2">
+          <button
+            onClick={() => setLocale(locale === "ar" ? "en" : "ar")}
+            className="flex h-9 w-9 items-center justify-center rounded-md text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+            aria-label={t.lang_switch}
+          >
+            {locale === "ar" ? "EN" : "AR"}
+          </button>
           <ThemeToggle />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground hover:text-foreground"
-            aria-label={isMenuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+            aria-label={isMenuOpen ? t.nav_menu_close : t.nav_menu_open}
             aria-expanded={isMenuOpen}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

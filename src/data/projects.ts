@@ -8,6 +8,7 @@ export const projects: Project[] = [
     description: "تطبيق ويب متكامل لإدارة المهام والمشاريع مع واجهة مستخدم عصرية",
     longDescription:
       "تصميم وتطوير تطبيق ويب متكامل لإدارة المهام اليومية والمشاريع. يتميز بواجهة مستخدم بديهية مع إمكانية إنشاء المشاريع، تعيين المهام، متابعة التقدم، وتحليلات الأداء. استخدمت في هذا المشروع أحدث تقنيات الواجهات لضمان تجربة مستخدم سلسة.",
+    // DATA_NEEDED: استبدل picsum.photos بصور حقيقية للمشروع
     thumbnail: "https://picsum.photos/seed/task-management-app/600/400",
     images: [
       "https://picsum.photos/seed/task-management-app-1/1200/800",
@@ -26,6 +27,8 @@ export const projects: Project[] = [
       "أنيميشن سلس للانتقالات باستخدام GSAP",
       "responsive design يدعم جميع الأجهزة",
     ],
+    liveUrl: "https://task-management-app.vercel.app",
+    githubUrl: "https://github.com/ahmedeltataw/task-management-app",
   },
   {
     id: "2",
@@ -51,6 +54,8 @@ export const projects: Project[] = [
       "تحسين SEO للمنتجات",
       "search و filter متقدم",
     ],
+    liveUrl: "https://e-commerce-platform.vercel.app",
+    githubUrl: "https://github.com/ahmedeltataw/e-commerce-platform",
   },
   {
     id: "3",
@@ -76,6 +81,8 @@ export const projects: Project[] = [
       "تحديث البيانات في الوقت الفعلي",
       "نظام صلاحيات متعدد المستويات",
     ],
+    liveUrl: "https://analytics-dashboard.vercel.app",
+    githubUrl: "https://github.com/ahmedeltataw/analytics-dashboard",
   },
   {
     id: "4",
@@ -101,6 +108,8 @@ export const projects: Project[] = [
       "تطبيق الهوية على منصات متعددة",
       "مطابقة الهوية مع شخصية الشركة",
     ],
+    liveUrl: "https://startup-branding.vercel.app",
+    githubUrl: "https://github.com/ahmedeltataw/startup-branding",
   },
   {
     id: "5",
@@ -126,6 +135,8 @@ export const projects: Project[] = [
       "اختبارات تقييم تفاعلية",
       "responsive design لجميع الأجهزة",
     ],
+    liveUrl: "https://learning-platform.vercel.app",
+    githubUrl: "https://github.com/ahmedeltataw/learning-platform",
   },
   {
     id: "6",
@@ -151,5 +162,7 @@ export const projects: Project[] = [
       "دعم تحديد الموقع الجغرافي",
       "توقعات 7 أيام قادمة",
     ],
+    liveUrl: "https://weather-app.vercel.app",
+    githubUrl: "https://github.com/ahmedeltataw/weather-app",
   },
 ];

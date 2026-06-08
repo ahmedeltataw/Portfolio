@@ -7,16 +7,18 @@ import { projects } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import { TextReveal } from "@/components/shared/text-reveal";
 import { Parallax } from "@/components/shared/parallax";
-
-const CATEGORIES = [
-  { value: "all", label: "الكل" },
-  { value: "ui-ux", label: "UI/UX" },
-  { value: "frontend", label: "Frontend" },
-  { value: "fullstack", label: "Full Stack" },
-  { value: "branding", label: "Branding" },
-];
+import { useLanguage } from "@/contexts/language-context";
 
 export default function ProjectsPage() {
+  const { t } = useLanguage();
+
+  const CATEGORIES = [
+    { value: "all", label: t.projects.all },
+    { value: "ui-ux", label: "UI/UX" },
+    { value: "frontend", label: "Frontend" },
+    { value: "fullstack", label: "Full Stack" },
+    { value: "branding", label: "Branding" },
+  ];
   const [activeCategory, setActiveCategory] = useState("all");
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -25,7 +27,7 @@ export default function ProjectsPage() {
     : projects.filter((p) => p.category === activeCategory);
 
   useEffect(() => {
-    document.title = "مشاريعي | احمد";
+    document.title = `${t.projects.title} | احمد`;
     const cards = gridRef.current?.querySelectorAll(".project-card");
     if (!cards?.length) return;
 
@@ -38,7 +40,7 @@ export default function ProjectsPage() {
     });
 
     return () => ctx.revert();
-  }, [activeCategory]);
+  }, [activeCategory, t.projects.title]);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-24">
@@ -47,10 +49,10 @@ export default function ProjectsPage() {
           className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tight"
           as="h1"
         >
-          مشاريعي
+          {t.projects.title}
         </TextReveal>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
-          مجموعة من المشاريع في مجالات UI/UX Design و Frontend Development
+          {t.projects.subtitle}
         </p>
       </div>
 
@@ -86,7 +88,7 @@ export default function ProjectsPage() {
 
       {filteredProjects.length === 0 && (
         <div className="text-center py-20 text-muted-foreground">
-          لا توجد مشاريع في هذا التصنيف
+          {t.projects.no_projects}
         </div>
       )}
     </div>

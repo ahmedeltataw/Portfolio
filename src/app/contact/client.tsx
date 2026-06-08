@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { siteConfig } from "@/lib/constants";
 import { MagneticButton } from "@/components/shared/magnetic-button";
+import { useLanguage } from "@/contexts/language-context";
 
 interface FormData {
   name: string;
@@ -18,33 +19,34 @@ interface FormErrors {
   message?: string;
 }
 
-function validateForm(data: FormData): FormErrors {
-  const errors: FormErrors = {};
-
-  if (!data.name.trim()) {
-    errors.name = "الاسم مطلوب";
-  }
-
-  if (!data.email.trim()) {
-    errors.email = "البريد الإلكتروني مطلوب";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.email = "البريد الإلكتروني غير صحيح";
-  }
-
-  if (!data.subject.trim()) {
-    errors.subject = "الموضوع مطلوب";
-  }
-
-  if (!data.message.trim()) {
-    errors.message = "الرسالة مطلوبة";
-  } else if (data.message.trim().length < 10) {
-    errors.message = "الرسالة يجب أن تكون 10 أحرف على الأقل";
-  }
-
-  return errors;
-}
-
 export function ContactClient() {
+  const { t } = useLanguage();
+
+  const validateForm = (data: FormData): FormErrors => {
+    const errors: FormErrors = {};
+
+    if (!data.name.trim()) {
+      errors.name = t.validation.name_required;
+    }
+
+    if (!data.email.trim()) {
+      errors.email = t.validation.email_required;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      errors.email = t.validation.email_invalid;
+    }
+
+    if (!data.subject.trim()) {
+      errors.subject = t.validation.subject_required;
+    }
+
+    if (!data.message.trim()) {
+      errors.message = t.validation.message_required;
+    } else if (data.message.trim().length < 10) {
+      errors.message = t.validation.message_min;
+    }
+
+    return errors;
+  };
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -76,9 +78,17 @@ export function ContactClient() {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    console.log("Form submitted:", formData);
+    const mailtoLink = `mailto:${siteConfig.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`الاسم: ${formData.name}\nالبريد: ${formData.email}\n\n${formData.message}`)}`;
+    try {
+      const w = window.open(mailtoLink);
+      if (!w || w.closed) {
+        window.location.href = mailtoLink;
+      }
+    } catch {
+      window.location.href = mailtoLink;
+    }
     setIsSubmitting(false);
-    setToast("تم إرسال رسالتك بنجاح!");
+    setToast(t.contact.success);
     setFormData({ name: "", email: "", subject: "", message: "" });
 
     setTimeout(() => setToast(null), 3000);
@@ -88,10 +98,10 @@ export function ContactClient() {
     <div className="mx-auto max-w-5xl px-4 py-24">
       <div className="mb-12 text-center">
         <h1 className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tight">
-          تواصل معي
+          {t.contact.title}
         </h1>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
-          عندك مشروع أو فكرة؟ أرسلي رسالة وهتواصل معاك في أقرب وقت
+          {t.contact.subtitle}
         </p>
       </div>
 
@@ -103,15 +113,15 @@ export function ContactClient() {
         >
           <div className="flex flex-col gap-1.5">
             <label htmlFor="name" className="text-sm font-medium">
-              الاسم <span className="text-red-500">*</span>
+              {t.contact.name_label} <span className="text-red-500">*</span>
             </label>
             <input
               id="name"
               type="text"
               value={formData.name}
               onChange={(e) => handleChange("name", e.target.value)}
-              className="h-11 rounded-md border border-border bg-card px-3 text-sm outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring"
-              placeholder="اسمك الكريم"
+              className="input-focus-ring h-11 rounded-md border border-border bg-card px-3 text-sm outline-none"
+              placeholder={t.contact.name_placeholder}
               aria-required="true"
               aria-describedby={errors.name ? "name-error" : undefined}
             />
@@ -122,15 +132,15 @@ export function ContactClient() {
 
           <div className="flex flex-col gap-1.5">
             <label htmlFor="email" className="text-sm font-medium">
-              البريد الإلكتروني <span className="text-red-500">*</span>
+              {t.contact.email_label} <span className="text-red-500">*</span>
             </label>
             <input
               id="email"
               type="email"
               value={formData.email}
               onChange={(e) => handleChange("email", e.target.value)}
-              className="h-11 rounded-md border border-border bg-card px-3 text-sm outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring"
-              placeholder="your@email.com"
+              className="input-focus-ring h-11 rounded-md border border-border bg-card px-3 text-sm outline-none"
+              placeholder={t.contact.email_placeholder}
               aria-required="true"
               aria-describedby={errors.email ? "email-error" : undefined}
             />
@@ -141,15 +151,15 @@ export function ContactClient() {
 
           <div className="flex flex-col gap-1.5">
             <label htmlFor="subject" className="text-sm font-medium">
-              الموضوع <span className="text-red-500">*</span>
+              {t.contact.subject_label} <span className="text-red-500">*</span>
             </label>
             <input
               id="subject"
               type="text"
               value={formData.subject}
               onChange={(e) => handleChange("subject", e.target.value)}
-              className="h-11 rounded-md border border-border bg-card px-3 text-sm outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring"
-              placeholder="موضوع الرسالة"
+              className="input-focus-ring h-11 rounded-md border border-border bg-card px-3 text-sm outline-none"
+              placeholder={t.contact.subject_placeholder}
               aria-required="true"
               aria-describedby={errors.subject ? "subject-error" : undefined}
             />
@@ -160,15 +170,15 @@ export function ContactClient() {
 
           <div className="flex flex-col gap-1.5">
             <label htmlFor="message" className="text-sm font-medium">
-              الرسالة <span className="text-red-500">*</span>
+              {t.contact.message_label} <span className="text-red-500">*</span>
             </label>
             <textarea
               id="message"
               rows={5}
               value={formData.message}
               onChange={(e) => handleChange("message", e.target.value)}
-              className="min-h-[120px] rounded-md border border-border bg-card px-3 py-2.5 text-sm outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring resize-y"
-              placeholder="رسالتك..."
+              className="input-focus-ring min-h-[120px] rounded-md border border-border bg-card px-3 py-2.5 text-sm outline-none resize-y"
+              placeholder={t.contact.message_placeholder}
               aria-required="true"
               aria-describedby={errors.message ? "message-error" : undefined}
             />
@@ -188,17 +198,17 @@ export function ContactClient() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                جاري الإرسال...
+                {t.contact.sending}
               </span>
             ) : (
-              "إرسال الرسالة"
+              t.contact.send
             )}
           </MagneticButton>
         </form>
 
         <div className="md:col-span-2 flex flex-col gap-8">
           <div className="rounded-xl border border-border bg-card p-6">
-            <h2 className="font-display text-lg mb-4">معلومات التواصل</h2>
+            <h2 className="font-display text-lg mb-4">{t.contact.contact_info}</h2>
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary shrink-0">
@@ -227,7 +237,7 @@ export function ContactClient() {
           </div>
 
           <div className="rounded-xl border border-border bg-card p-6">
-            <h2 className="font-display text-lg mb-4">تابعني</h2>
+            <h2 className="font-display text-lg mb-4">{t.contact.follow_me}</h2>
             <div className="flex gap-3">
               {Object.entries(siteConfig.links).map(([platform, url]) => (
                 <a

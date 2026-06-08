@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Cairo } from "next/font/google";
 import { siteConfig } from "@/lib/constants";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/shared/smooth-scroll";
 import { PageTransition } from "@/components/shared/page-transition";
+import { CustomCursor } from "@/components/shared/custom-cursor";
+import { LanguageProvider } from "@/contexts/language-context";
 import "@/lib/gsap-register";
 import "./globals.css";
 
@@ -17,6 +19,12 @@ const inter = Inter({
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
+  display: "swap",
+});
+
+const cairo = Cairo({
+  subsets: ["arabic"],
+  variable: "--font-cairo",
   display: "swap",
 });
 
@@ -50,6 +58,13 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true, "max-video-preview": -1, "max-image-preview": "large" },
+  },
+  alternates: {
+    languages: {
+      "ar": "/",
+      "en": "/",
+      "x-default": "/",
+    },
   },
 };
 
@@ -85,15 +100,18 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${playfairDisplay.variable} font-sans antialiased`}
+        className={`${inter.variable} ${playfairDisplay.variable} ${cairo.variable} font-sans antialiased`}
       >
-        <Navbar />
-        <SmoothScroll>
-          <main className="min-h-screen pt-16">
-            <PageTransition>{children}</PageTransition>
-          </main>
-        </SmoothScroll>
-        <Footer />
+        <LanguageProvider>
+          <CustomCursor />
+          <Navbar />
+          <SmoothScroll>
+            <main className="min-h-screen pt-16">
+              <PageTransition>{children}</PageTransition>
+            </main>
+          </SmoothScroll>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

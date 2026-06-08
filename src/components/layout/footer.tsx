@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { siteConfig } from "@/lib/constants";
+import { useLanguage } from "@/contexts/language-context";
 
 const SOCIAL_ICONS: Record<string, JSX.Element > = {
   github: (
@@ -20,10 +23,11 @@ const SOCIAL_ICONS: Record<string, JSX.Element > = {
 };
 
 export function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border" aria-label="روابط التواصل">
+    <footer className="border-t border-border" aria-label={t.footer.built_with}>
       <div className="mx-auto flex flex-col items-center gap-4 px-4 py-8 max-w-5xl sm:flex-row sm:justify-between">
         <div className="flex flex-col items-center sm:items-start gap-1">
           <Link href="/" className="font-display text-lg tracking-tight">
@@ -50,7 +54,7 @@ export function Footer() {
         </div>
 
         <p className="text-xs text-muted-foreground">
-          Built with Next.js & GSAP
+          {t.footer.built_with}
         </p>
       </div>
     </footer>

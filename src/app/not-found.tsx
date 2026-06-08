@@ -3,12 +3,14 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
+import { useLanguage } from "@/contexts/language-context";
 
 export default function NotFoundPage() {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    document.title = "الصفحة مش موجودة | احمد";
+    document.title = `${t.notFound.title} | احمد`;
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".not-found-animate",
@@ -18,7 +20,7 @@ export default function NotFoundPage() {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [t.notFound.title]);
 
   return (
     <div
@@ -29,16 +31,16 @@ export default function NotFoundPage() {
         404
       </div>
       <h1 className="not-found-animate mt-4 font-display text-2xl sm:text-3xl tracking-tight">
-        الصفحة مش موجودة
+        {t.notFound.title}
       </h1>
       <p className="not-found-animate mt-3 text-muted-foreground text-center max-w-sm">
-        الصفحة اللي بتدور عليها مش موجودة أو اتشالت. تأكد من الرابط أو ارجع للرئيسية.
+        {t.notFound.description}
       </p>
       <Link
         href="/"
         className="not-found-animate mt-8 inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
       >
-        رجوع للرئيسية
+        {t.notFound.back_home}
       </Link>
     </div>
   );

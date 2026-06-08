@@ -10,7 +10,8 @@ export const siteConfig: SiteConfig = {
   links: {
     github: "https://github.com/ahmedeltataw",
     linkedin: "https://www.linkedin.com/in/ahmed-eltatawy/",
-    behance: "https://behance.net/",       // ← عايز الـ handle
+    // DATA_NEEDED: احمد، حط رابط Behance الحقيقي هنا
+    behance: "https://behance.net/",
   },
   email: "eltatawea@gmail.com",
   location: "مصر",
@@ -27,6 +28,7 @@ export const experiences: Experience[] = [
   },
   {
     id: "exp-2",
+    // DATA_NEEDED: اسم الشركة الحقيقي
     year: "2024 – 2025",
     company: "Tech Company",
     role: "Frontend Developer",
@@ -34,6 +36,7 @@ export const experiences: Experience[] = [
   },
   {
     id: "exp-3",
+    // DATA_NEEDED: اسم الشركة الحقيقي
     year: "2023 – 2024",
     company: "Design Agency",
     role: "UI/UX Designer",
@@ -41,6 +44,7 @@ export const experiences: Experience[] = [
   },
   {
     id: "exp-4",
+    // DATA_NEEDED: اسم الشركة الحقيقي
     year: "2022 – 2023",
     company: "Startup Name",
     role: "Junior Frontend Developer",

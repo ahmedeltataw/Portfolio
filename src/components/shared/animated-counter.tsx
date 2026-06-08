@@ -10,6 +10,7 @@ interface AnimatedCounterProps {
   suffix?: string;
   duration?: number;
   className?: string;
+  icon?: React.ReactNode;
 }
 
 export function AnimatedCounter({
@@ -18,6 +19,7 @@ export function AnimatedCounter({
   suffix = "",
   duration = 2,
   className = "",
+  icon,
 }: AnimatedCounterProps) {
   const elRef = useRef<HTMLSpanElement>(null);
 
@@ -52,8 +54,9 @@ export function AnimatedCounter({
   }, [from, to, suffix, duration]);
 
   return (
-    <span ref={elRef} className={className}>
-      {suffix}
+    <span className={className}>
+      {icon && <span className="inline-block mr-1">{icon}</span>}
+      <span ref={elRef}>{suffix}</span>
     </span>
   );
 }
