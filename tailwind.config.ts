@@ -56,6 +56,10 @@ const config: Config = {
         "float-delayed": "floatDelayed 8s ease-in-out infinite",
         "gradient-shift": "gradientShift 8s ease infinite",
         "pulse-glow": "pulseGlow 3s ease-in-out infinite",
+        "float-slow": "float-slow 12s ease-in-out infinite",
+        "float-slower": "float-slower 16s ease-in-out infinite",
+        "float-slowest": "float-slowest 20s ease-in-out infinite",
+        "scroll-bounce": "scrollBounce 2s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
@@ -92,6 +96,24 @@ const config: Config = {
         pulseGlow: {
           "0%, 100%": { opacity: "0.4" },
           "50%": { opacity: "0.8" },
+        },
+        "float-slow": {
+          "0%, 100%": { transform: "translate(0, 0) rotate(0deg) scale(1)" },
+          "33%": { transform: "translate(15px, -15px) rotate(2deg) scale(1.05)" },
+          "66%": { transform: "translate(-10px, 10px) rotate(-1deg) scale(0.95)" },
+        },
+        "float-slower": {
+          "0%, 100%": { transform: "translate(0, 0) rotate(0deg)" },
+          "50%": { transform: "translate(-20px, -10px) rotate(3deg)" },
+        },
+        "float-slowest": {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "33%": { transform: "translate(10px, -20px)" },
+          "66%": { transform: "translate(-15px, 5px)" },
+        },
+        "scroll-bounce": {
+          "0%, 100%": { transform: "translateY(0)", opacity: "1" },
+          "50%": { transform: "translateY(6px)", opacity: "0.3" },
         },
       },
     },

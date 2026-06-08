@@ -9,12 +9,12 @@ export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const [variant, setVariant] = useState<CursorVariant>("default");
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [isTouchDevice, setIsTouchDevice] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(false);
 
-  const ringSize = 40;
-  const dotSize = 8;
+  const ringSize = 48;
+  const dotSize = 10;
 
   useEffect(() => {
     const mqHover = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -88,7 +88,12 @@ export function CustomCursor() {
   if (isTouchDevice || reducedMotion) return null;
 
   const ringVariants: Record<CursorVariant, React.CSSProperties> = {
-    default: { width: ringSize, height: ringSize, borderWidth: 1 },
+    default: {
+      width: ringSize,
+      height: ringSize,
+      borderWidth: 1,
+      boxShadow: "0 0 20px hsl(var(--primary) / 0.15)",
+    },
     link: { width: 60, height: 60, borderWidth: 2, borderColor: "hsl(var(--primary))" },
     cta: { width: 60, height: 60, borderWidth: 0, background: "hsl(var(--primary) / 0.15)" },
     card: { width: 0, height: 0, opacity: 0 },
