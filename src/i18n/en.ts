@@ -73,7 +73,7 @@ export const en: Translation = {
     description: "The page you're looking for doesn't exist or has been removed. Check the URL or go back home.",
     back_home: "Back to Home",
   },
-  lang_switch: "Switch language to Arabic",
+  lang_switch: "Switch language to العربية",
   nav_menu_open: "Open menu",
   nav_menu_close: "Close menu",
   validation: {

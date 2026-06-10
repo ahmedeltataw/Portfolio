@@ -4,159 +4,212 @@ import { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-function generateCircleTexture() {
-  const canvas = document.createElement("canvas");
-  canvas.width = 32;
-  canvas.height = 32;
-  const ctx = canvas.getContext("2d")!;
-  const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-  gradient.addColorStop(0, "rgba(255,255,255,1)");
-  gradient.addColorStop(0.3, "rgba(255,255,255,0.8)");
-  gradient.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, 32, 32);
-  return new THREE.CanvasTexture(canvas);
-}
+function TorusKnotMesh({ scrollProgress }: { scrollProgress: number }) {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  const materialRef = useRef<THREE.ShaderMaterial>(null!);
+  const initialY = useRef(0);
 
-function ParticleLayer({
-  count,
-  size,
-  opacity,
-  color,
-  spread,
-  rotSpeed,
-  mouseReaction,
-  blending,
-  sizeVariation = 0,
-  hueShift = 0,
-  reducedMotion = false,
-}: {
-  count: number;
-  size: number;
-  opacity: number;
-  color: string;
-  spread: number;
-  rotSpeed: number;
-  mouseReaction: number;
-  blending: THREE.Blending;
-  sizeVariation?: number;
-  hueShift?: number;
-  reducedMotion?: boolean;
-}) {
-  const mesh = useRef<THREE.Points>(null!);
-  const targetPos = useRef({ x: 0, y: 0 });
-  const circleTexture = useMemo(() => generateCircleTexture(), []);
+  useEffect(() => {
+    initialY.current = Math.random() * 2 - 1;
+  }, []);
 
-  const [positions, sizes] = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    const siz = new Float32Array(count);
-    for (let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      pos[i3] = (Math.random() - 0.5) * spread;
-      pos[i3 + 1] = (Math.random() - 0.5) * spread;
-      pos[i3 + 2] = (Math.random() - 0.5) * spread * 0.5;
-      siz[i] = size * (1 + (Math.random() - 0.5) * sizeVariation);
+  useFrame(({ clock, pointer }) => {
+    if (!meshRef.current) return;
+    const t = clock.getElapsedTime();
+
+    meshRef.current.rotation.x += 0.005;
+    meshRef.current.rotation.y += 0.01;
+    meshRef.current.rotation.z += 0.003;
+
+    meshRef.current.position.x += (pointer.x * 0.3 - meshRef.current.position.x) * 0.02;
+    meshRef.current.position.y += (-pointer.y * 0.3 - meshRef.current.position.y) * 0.02;
+
+    const scrollOffset = scrollProgress * 3;
+    meshRef.current.position.y += (initialY.current + scrollOffset - meshRef.current.position.y) * 0.01;
+    meshRef.current.rotation.y += scrollProgress * 0.02;
+
+    const scale = 1 + Math.sin(t * 0.5) * 0.05;
+    meshRef.current.scale.set(scale, scale, scale);
+
+    if (materialRef.current?.uniforms) {
+      materialRef.current.uniforms.uTime.value = t;
     }
-    return [pos, siz];
-  }, [count, size, spread, sizeVariation]);
-
-  const colors = useMemo(() => {
-    if (hueShift <= 0) return null;
-    const col = new Float32Array(count * 3);
-    const baseHsl = new THREE.Color(color);
-    for (let i = 0; i < count; i++) {
-      const shift = (Math.random() - 0.5) * hueShift;
-      const c = baseHsl.clone();
-      const hslObj = { h: 0, s: 0, l: 0 };
-      c.getHSL(hslObj);
-      c.setHSL(hslObj.h + shift / 360, hslObj.s, hslObj.l);
-      col[i * 3] = c.r;
-      col[i * 3 + 1] = c.g;
-      col[i * 3 + 2] = c.b;
-    }
-    return col;
-  }, [count, color, hueShift]);
-
-  useFrame(({ pointer }) => {
-    if (!mesh.current || reducedMotion) return;
-    targetPos.current.x += (pointer.x * mouseReaction * 5 - targetPos.current.x) * 0.02;
-    targetPos.current.y += (pointer.y * mouseReaction * 5 - targetPos.current.y) * 0.02;
-    mesh.current.position.x += (targetPos.current.x - mesh.current.position.x) * 0.05;
-    mesh.current.position.y += (targetPos.current.y - mesh.current.position.y) * 0.05;
-    mesh.current.rotation.y += rotSpeed;
-    mesh.current.rotation.x = Math.sin(Date.now() * 0.0005) * rotSpeed * 2;
   });
 
   return (
-    <points ref={mesh} frustumCulled={false}>
+    <mesh ref={meshRef} position={[0, 0, 0]}>
+      <torusKnotGeometry args={[1.8, 0.6, 200, 32]} />
+      <shaderMaterial
+        ref={materialRef}
+        transparent
+        wireframe={false}
+        uniforms={{
+          uTime: { value: 0 },
+          uColor: { value: new THREE.Color("#3b82f6") },
+          uGlowColor: { value: new THREE.Color("#8b5cf6") },
+        }}
+        vertexShader={`
+          varying vec3 vPosition;
+          varying vec3 vNormal;
+          void main() {
+            vPosition = position;
+            vNormal = normalize(normalMatrix * normal);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `}
+        fragmentShader={`
+          uniform float uTime;
+          uniform vec3 uColor;
+          uniform vec3 uGlowColor;
+          varying vec3 vPosition;
+          varying vec3 vNormal;
+
+          void main() {
+            float pulse = 0.6 + 0.4 * sin(vPosition.x * 2.0 + vPosition.y * 2.0 + uTime * 0.5);
+            vec3 color = mix(uColor, uGlowColor, pulse * 0.5);
+            float fresnel = 0.3 + 0.7 * pow(1.0 - abs(dot(vNormal, vec3(0.0, 0.0, 1.0))), 2.0);
+            gl_FragColor = vec4(color, 0.15 + fresnel * 0.25);
+          }
+        `}
+      />
+    </mesh>
+  );
+}
+
+function MorphingIcosahedron({ scrollProgress }: { scrollProgress: number }) {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  const geometryRef = useRef<THREE.IcosahedronGeometry>(null!);
+  const originalPositions = useRef<Float32Array | null>(null);
+
+  useEffect(() => {
+    if (geometryRef.current) {
+      const pos = geometryRef.current.attributes.position.array as Float32Array;
+      originalPositions.current = new Float32Array(pos);
+    }
+  }, []);
+
+  useFrame(({ clock }) => {
+    if (!meshRef.current || !geometryRef.current || !originalPositions.current) return;
+    const t = clock.getElapsedTime();
+    const positions = geometryRef.current.attributes.position.array as Float32Array;
+    const original = originalPositions.current;
+
+    const morphStrength = 0.15 + scrollProgress * 0.3;
+    for (let i = 0; i < positions.length; i += 3) {
+      const x = original[i];
+      const y = original[i + 1];
+      const z = original[i + 2];
+      const noise = Math.sin(x * 3 + t * 0.5) * Math.cos(y * 3 + t * 0.3) * Math.sin(z * 2 + t * 0.7);
+      positions[i] = x + noise * morphStrength;
+      positions[i + 1] = y + noise * morphStrength * 0.7;
+      positions[i + 2] = z + noise * morphStrength * 0.5;
+    }
+    geometryRef.current.attributes.position.needsUpdate = true;
+
+    meshRef.current.rotation.x += 0.003;
+    meshRef.current.rotation.y += 0.005;
+    meshRef.current.rotation.z += 0.001;
+
+    const scrollOffset = scrollProgress * 2;
+    meshRef.current.position.x = 2.5 + scrollProgress * 0.5;
+    meshRef.current.position.y = -1 + scrollOffset * 0.3;
+  });
+
+  return (
+    <mesh ref={meshRef} position={[2.5, -1, -2]}>
+      <icosahedronGeometry ref={geometryRef} args={[0.8, 1]} />
+      <meshPhysicalMaterial
+        color="#8b5cf6"
+        wireframe
+        transparent
+        opacity={0.3}
+        emissive="#8b5cf6"
+        emissiveIntensity={0.1}
+      />
+    </mesh>
+  );
+}
+
+function FloatingParticles({ count = 200, scrollProgress }: { count?: number; scrollProgress: number }) {
+  const pointsRef = useRef<THREE.Points>(null!);
+  const positions = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 15;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 10 - 3;
+    }
+    return pos;
+  }, [count]);
+
+  const circleTexture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 32;
+    canvas.height = 32;
+    const ctx = canvas.getContext("2d")!;
+    const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    gradient.addColorStop(0, "rgba(255,255,255,1)");
+    gradient.addColorStop(0.3, "rgba(255,255,255,0.6)");
+    gradient.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 32, 32);
+    return new THREE.CanvasTexture(canvas);
+  }, []);
+
+  useFrame(({ clock }) => {
+    if (!pointsRef.current) return;
+    const t = clock.getElapsedTime();
+    const pos = pointsRef.current.geometry.attributes.position.array as Float32Array;
+
+    for (let i = 0; i < count; i++) {
+      const i3 = i * 3;
+      pos[i3 + 1] += Math.sin(t * 0.3 + i) * 0.001;
+      pos[i3] += Math.cos(t * 0.2 + i * 0.5) * 0.001;
+      pos[i3 + 1] -= scrollProgress * 0.002;
+    }
+    pointsRef.current.geometry.attributes.position.needsUpdate = true;
+    pointsRef.current.rotation.y += 0.0005;
+  });
+
+  return (
+    <points ref={pointsRef}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        {colors && <bufferAttribute attach="attributes-color" args={[colors, 3]} />}
-        <bufferAttribute attach="attributes-size" args={[sizes, 1]} />
       </bufferGeometry>
       <pointsMaterial
-        size={size}
-        color={color}
+        size={0.04}
+        color="#3b82f6"
         sizeAttenuation
         transparent
-        opacity={opacity}
-        blending={blending}
+        opacity={0.3}
+        blending={THREE.AdditiveBlending}
         depthWrite={false}
         map={circleTexture}
-        vertexColors={!!colors}
-        toneMapped={false}
       />
     </points>
   );
 }
 
-function Scene({ color, reducedMotion }: { color: string; reducedMotion: boolean }) {
+function Scene({ scrollProgress: sp, reducedMotion }: { scrollProgress: number; reducedMotion: boolean }) {
+  if (reducedMotion) {
+    return null;
+  }
+
   return (
     <>
-      <ParticleLayer
-        count={800}
-        size={0.04}
-        opacity={0.25}
-        color={color}
-        spread={15}
-        rotSpeed={0.008}
-        mouseReaction={0.1}
-        blending={THREE.NormalBlending}
-        reducedMotion={reducedMotion}
-      />
-      <ParticleLayer
-        count={300}
-        size={0.12}
-        opacity={0.5}
-        color={color}
-        spread={10}
-        rotSpeed={0.02}
-        mouseReaction={0.25}
-        blending={THREE.AdditiveBlending}
-        sizeVariation={0.4}
-        reducedMotion={reducedMotion}
-      />
-      <ParticleLayer
-        count={50}
-        size={0.3}
-        opacity={0.7}
-        color="#e0f0ff"
-        spread={8}
-        rotSpeed={0.04}
-        mouseReaction={0.5}
-        blending={THREE.AdditiveBlending}
-        sizeVariation={0.8}
-        hueShift={60}
-        reducedMotion={reducedMotion}
-      />
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} intensity={0.8} />
+      <TorusKnotMesh scrollProgress={sp} />
+      <MorphingIcosahedron scrollProgress={sp} />
+      <FloatingParticles count={200} scrollProgress={sp} />
     </>
   );
 }
 
 export function Canvas3D() {
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [themeColor, setThemeColor] = useState("#3b82f6");
   const [mounted, setMounted] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     setMounted(true);
@@ -168,24 +221,26 @@ export function Canvas3D() {
   }, []);
 
   useEffect(() => {
-    const updateColor = () => {
-      const style = getComputedStyle(document.documentElement);
-      const h = style.getPropertyValue("--primary").trim().split(" ")[0];
-      setThemeColor(`hsl(${h}, 83.2%, 53.3%)`);
+    if (reducedMotion) return;
+    const handleScroll = () => {
+      const hero = document.querySelector("[data-hero-section]") as HTMLElement | null;
+      if (!hero) return;
+      const rect = hero.getBoundingClientRect();
+      const heroHeight = hero.offsetHeight;
+      const progress = Math.max(0, Math.min(1, -rect.top / heroHeight));
+      setScrollProgress(progress);
     };
-    updateColor();
-    const observer = new MutationObserver(updateColor);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, []);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [reducedMotion]);
 
   if (!mounted) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0">
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 75 }}
-        dpr={[1, 2]}
+        camera={{ position: [0, 0, 7], fov: 60 }}
+        dpr={[1, 1.5]}
         gl={{
           antialias: true,
           alpha: true,
@@ -193,7 +248,7 @@ export function Canvas3D() {
         }}
         style={{ background: "transparent" }}
       >
-        <Scene color={themeColor} reducedMotion={reducedMotion} />
+        <Scene scrollProgress={scrollProgress} reducedMotion={reducedMotion} />
       </Canvas>
     </div>
   );

@@ -21,39 +21,84 @@ export function Hero() {
 
       tl.fromTo(
         ".hero-badge",
-        { opacity: 0, y: -30, scale: 0.8 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.12 }
+        { opacity: 0, y: -40, scale: 0.6, rotate: -10 },
+        { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.8, stagger: 0.15 }
       )
       .fromTo(
         ".hero-subtitle",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6 },
+        { opacity: 0, y: 20, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.6 },
         "-=0.4"
+      )
+      .fromTo(
+        ".hero-name",
+        { opacity: 0, y: 50, scale: 0.8, filter: "blur(10px)" },
+        { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.2, ease: "power2.out" },
+        "-=0.3"
       )
       .fromTo(
         ".hero-title-sub",
         { opacity: 0, y: 30, scale: 0.95 },
         { opacity: 1, y: 0, scale: 1, duration: 0.8 },
-        "-=0.3"
+        "-=0.6"
       )
       .fromTo(
         ".hero-description",
-        { opacity: 0, y: 20, filter: "blur(4px)" },
-        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8 },
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
         "-=0.4"
       )
       .fromTo(
         ".hero-cta",
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.6 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.15 },
         "-=0.4"
       )
       .fromTo(
         ".hero-scroll",
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5 },
+        { opacity: 0, y: -10 },
+        { opacity: 1, y: 0, duration: 0.5 },
         "-=0.2"
       );
+
+      gsap.to(".hero-badge-1", {
+        y: -50,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.5,
+        },
+      });
+      gsap.to(".hero-badge-2", {
+        y: -30,
+        x: 20,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.5,
+        },
+      });
+      gsap.to(".hero-badge-3", {
+        y: -40,
+        x: -15,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.5,
+        },
+      });
+      gsap.to(".hero-badge-4", {
+        y: -60,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.5,
+        },
+      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -62,6 +107,7 @@ export function Hero() {
   return (
     <section
       ref={containerRef}
+      data-hero-section
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 py-24"
     >
       <div className="absolute inset-0 pointer-events-none">
@@ -92,25 +138,25 @@ export function Hero() {
         <div className="absolute top-[60%] left-[50%] w-72 h-32 rounded-full bg-gradient-to-r from-primary/3 to-transparent blur-3xl animate-float-slowest" />
       </div>
 
-      <div className="hero-badge absolute -top-12 left-1/4 hidden lg:block">
+      <div className="hero-badge hero-badge-1 absolute -top-12 left-1/4 hidden lg:block">
         <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl border border-primary/10">
           <span className="h-2 w-2 rounded-full bg-primary animate-pulse-glow" />
           Next.js 14
         </span>
       </div>
-      <div className="hero-badge absolute top-[15%] -right-8 hidden lg:block">
+      <div className="hero-badge hero-badge-2 absolute top-[15%] -right-8 hidden lg:block">
         <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl">
           <span className="h-2 w-2 rounded-full bg-purple-500 animate-pulse-glow" />
           TypeScript
         </span>
       </div>
-      <div className="hero-badge absolute bottom-[15%] -left-8 hidden lg:block">
+      <div className="hero-badge hero-badge-3 absolute bottom-[15%] -left-8 hidden lg:block">
         <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl">
           <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse-glow" />
           Tailwind CSS
         </span>
       </div>
-      <div className="hero-badge absolute -bottom-12 right-1/4 hidden lg:block">
+      <div className="hero-badge hero-badge-4 absolute -bottom-12 right-1/4 hidden lg:block">
         <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl border border-accent/10">
           <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse-glow" />
           GSAP ScrollTrigger
@@ -126,16 +172,23 @@ export function Hero() {
           </span>
           {t.hero.availability}
         </p>
-        <span style={{ textShadow: "0 0 40px hsl(var(--primary) / 0.15), 0 0 80px hsl(var(--primary) / 0.08)" }}>
-          <TextReveal
-            className="font-display text-display tracking-tight"
-            as="span"
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-radial from-primary/20 via-primary/5 to-transparent blur-[100px] scale-150 opacity-50 animate-pulse-glow" />
+          <span
+            className="hero-name block font-display text-display tracking-tight leading-none"
+            style={{ textShadow: "0 0 60px hsl(var(--primary) / 0.2), 0 0 120px hsl(var(--primary) / 0.1)" }}
           >
-            {siteConfig.name}
-          </TextReveal>
-        </span>
+            <TextReveal
+              className="font-display text-display tracking-tight"
+              as="span"
+            >
+              {siteConfig.name}
+            </TextReveal>
+          </span>
+        </div>
         <span className="hero-title-sub block mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-wider text-gradient-primary">
           {siteConfig.title}
+          <span className="inline-block w-1 h-8 sm:h-10 md:h-12 bg-gradient-to-b from-primary to-purple-500 animate-pulse-glow ml-2 align-middle" />
         </span>
         <p className="hero-description mt-6 text-body-lg text-muted-foreground/80 max-w-xl mx-auto leading-[1.8] tracking-wide">
           {siteConfig.description}

@@ -19,8 +19,10 @@ export interface Project {
 
 export interface SiteConfig {
   name: string;
+  nameAr: string;
   title: string;
   description: string;
+  descriptionAr: string;
   url: string;
   ogImage: string;
   links: {
@@ -32,7 +34,9 @@ export interface SiteConfig {
   };
   email: string;
   location: string;
+  locationAr: string;
   availability: string;
+  availabilityAr: string;
 }
 
 export interface Experience {
@@ -41,6 +45,7 @@ export interface Experience {
   company: string;
   role: string;
   description: string;
+  descriptionAr: string;
 }
 
 export interface Skill {

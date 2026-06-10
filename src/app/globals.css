@@ -98,6 +98,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .bg-gradient-radial {
+    background-image: radial-gradient(var(--tw-gradient-stops));
+  }
 }
 
 @layer components {

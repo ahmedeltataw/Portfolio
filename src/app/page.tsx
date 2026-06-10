@@ -9,7 +9,7 @@ import { CTASection } from "@/components/sections/cta-section";
 import { ScrollProgress } from "@/components/shared/scroll-progress";
 
 export const metadata: Metadata = {
-  title: "الرئيسية",
+  title: "Home",
   description: siteConfig.description,
 };
 

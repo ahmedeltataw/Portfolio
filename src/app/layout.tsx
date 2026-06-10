@@ -1,12 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display, Cairo } from "next/font/google";
 import { siteConfig } from "@/lib/constants";
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
-import { SmoothScroll } from "@/components/shared/smooth-scroll";
-import { PageTransition } from "@/components/shared/page-transition";
-import { CustomCursor } from "@/components/shared/custom-cursor";
-import { LanguageProvider } from "@/contexts/language-context";
+import { RootProvider } from "@/components/shared/root-provider";
 import "@/lib/gsap-register";
 import "./globals.css";
 
@@ -40,8 +35,8 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   openGraph: {
     type: "website",
-    locale: "ar_EG",
-    alternateLocale: "en_US",
+    locale: "en_US",
+    alternateLocale: "ar_EG",
     siteName: siteConfig.name,
     title: `${siteConfig.name} — ${siteConfig.title}`,
     description: siteConfig.description,
@@ -92,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -102,16 +97,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfairDisplay.variable} ${cairo.variable} font-sans antialiased`}
       >
-        <LanguageProvider>
-          <CustomCursor />
-          <Navbar />
-          <SmoothScroll>
-            <main className="min-h-screen pt-16">
-              <PageTransition>{children}</PageTransition>
-            </main>
-          </SmoothScroll>
-          <Footer />
-        </LanguageProvider>
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
   );

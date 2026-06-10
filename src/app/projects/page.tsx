@@ -77,10 +77,10 @@ export default function ProjectsPage() {
         ref={gridRef}
         className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {filteredProjects.map((project, index) => (
+        {filteredProjects.map((project) => (
           <div key={project.id} className="project-card">
             <Parallax speed={0.1}>
-              <ProjectCard project={project} index={index} />
+              <ProjectCard project={project} />
             </Parallax>
           </div>
         ))}
