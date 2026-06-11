@@ -1,66 +1,57 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  Float,
-  Environment,
-  ContactShadows,
-  Sparkles,
-} from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Float, Sparkles } from "@react-three/drei";
 import * as THREE from "three";
 
-function GlassTorusKnot({ scrollProgress, cursorRef }: { scrollProgress: number; cursorRef: React.MutableRefObject<{ x: number; y: number }> }) {
+/* ─────────── Lightweight 3D Scene ─────────── */
+
+function MainKnot({ scrollProgress, cursorRef }: { scrollProgress: number; cursorRef: React.MutableRefObject<{ x: number; y: number }> }) {
   const meshRef = useRef<THREE.Mesh>(null!);
   const initialY = useRef(0);
 
   useEffect(() => {
-    initialY.current = Math.random() * 0.5 - 0.25;
+    initialY.current = Math.random() * 0.4 - 0.2;
   }, []);
 
   useFrame(({ clock }) => {
     if (!meshRef.current) return;
     const t = clock.getElapsedTime();
 
-    meshRef.current.rotation.x = t * 0.08;
-    meshRef.current.rotation.y = t * 0.12;
-    meshRef.current.rotation.z = t * 0.05;
+    meshRef.current.rotation.x = t * 0.06;
+    meshRef.current.rotation.y = t * 0.09;
+    meshRef.current.rotation.z = t * 0.03;
 
-    const targetX = cursorRef.current.x * 1.5;
-    const targetY = -cursorRef.current.y * 1.5;
-    meshRef.current.position.x += (targetX - meshRef.current.position.x) * 0.05;
-    meshRef.current.position.y += (targetY + initialY.current - meshRef.current.position.y) * 0.05;
+    const targetX = cursorRef.current.x * 1.2;
+    const targetY = -cursorRef.current.y * 1.2;
+    meshRef.current.position.x += (targetX - meshRef.current.position.x) * 0.04;
+    meshRef.current.position.y += (targetY + initialY.current - meshRef.current.position.y) * 0.04;
 
-    const scrollOffset = scrollProgress * 2.5;
+    const scrollOffset = scrollProgress * 2;
     meshRef.current.position.y += (initialY.current + scrollOffset - meshRef.current.position.y) * 0.02;
+    meshRef.current.rotation.y += scrollProgress * 0.01;
 
-    meshRef.current.rotation.y += scrollProgress * 0.015;
-
-    const scale = 1 + Math.sin(t * 0.4) * 0.04;
+    const scale = 1 + Math.sin(t * 0.4) * 0.025;
     meshRef.current.scale.set(scale, scale, scale);
   });
 
   return (
     <mesh ref={meshRef} position={[0, 0, 0]}>
-      <torusKnotGeometry args={[1.8, 0.6, 200, 32]} />
-      <meshPhysicalMaterial
+      {/* lighter geometry: fewer segments */}
+      <torusKnotGeometry args={[1.6, 0.5, 100, 20]} />
+      <meshStandardMaterial
         color="#3b82f6"
-        transmission={0.85}
-        roughness={0.05}
-        metalness={0.1}
-        clearcoat={1}
-        clearcoatRoughness={0.05}
-        thickness={0.5}
-        envMapIntensity={1.5}
-        transparent
-        opacity={0.9}
+        roughness={0.25}
+        metalness={0.4}
+        emissive="#1d4ed8"
+        emissiveIntensity={0.35}
       />
     </mesh>
   );
 }
 
-function OrbitingIcosahedron({ color, speed, scale, offset }: { color: string; speed: number; scale: number; offset: number }) {
+function SmallOrbiter({ color, speed, scale, offset }: { color: string; speed: number; scale: number; offset: number }) {
   const meshRef = useRef<THREE.Mesh>(null!);
   const angleRef = useRef(offset);
 
@@ -69,42 +60,58 @@ function OrbitingIcosahedron({ color, speed, scale, offset }: { color: string; s
     const t = clock.getElapsedTime();
     angleRef.current = offset + t * speed;
 
-    meshRef.current.position.x = Math.cos(angleRef.current) * 3.5;
-    meshRef.current.position.z = Math.sin(angleRef.current) * 3.5;
-    meshRef.current.position.y = Math.sin(t * 0.3 + offset) * 0.8;
+    meshRef.current.position.x = Math.cos(angleRef.current) * 2.8;
+    meshRef.current.position.z = Math.sin(angleRef.current) * 2.8;
+    meshRef.current.position.y = Math.sin(t * 0.25 + offset) * 0.6;
 
-    meshRef.current.rotation.x = t * 0.2;
-    meshRef.current.rotation.y = t * 0.3;
+    meshRef.current.rotation.x = t * 0.15;
+    meshRef.current.rotation.y = t * 0.2;
   });
 
   return (
     <mesh ref={meshRef} scale={scale}>
-      <icosahedronGeometry args={[0.5, 1]} />
-      <meshPhysicalMaterial
+      <icosahedronGeometry args={[0.4, 0]} />
+      <meshStandardMaterial
         color={color}
-        wireframe
-        transparent
-        opacity={0.6}
+        roughness={0.2}
+        metalness={0.6}
         emissive={color}
-        emissiveIntensity={0.15}
+        emissiveIntensity={0.25}
       />
     </mesh>
   );
 }
 
-function CameraRig({ cursorRef }: { cursorRef: React.MutableRefObject<{ x: number; y: number }> }) {
-  const { camera } = useThree();
+function SoftOrbs({ scrollProgress }: { scrollProgress: number }) {
+  const orbRef1 = useRef<THREE.Mesh>(null!);
+  const orbRef2 = useRef<THREE.Mesh>(null!);
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
-    const radius = 7;
-    camera.position.x = Math.sin(t * 0.05) * 0.5 + cursorRef.current.x * 0.3;
-    camera.position.y = Math.cos(t * 0.08) * 0.3 - cursorRef.current.y * 0.2;
-    camera.position.z = radius;
-    camera.lookAt(0, 0, 0);
+    if (orbRef1.current) {
+      orbRef1.current.position.x = Math.sin(t * 0.2) * 2.5;
+      orbRef1.current.position.y = Math.cos(t * 0.15) * 1.6 + scrollProgress * 0.5;
+      orbRef1.current.position.z = -1.5 + scrollProgress * 0.4;
+    }
+    if (orbRef2.current) {
+      orbRef2.current.position.x = Math.cos(t * 0.25) * 2;
+      orbRef2.current.position.y = Math.sin(t * 0.18) * 1.4 - scrollProgress * 0.3;
+      orbRef2.current.position.z = -1.8 - scrollProgress * 0.2;
+    }
   });
 
-  return null;
+  return (
+    <>
+      <mesh ref={orbRef1} position={[2.4, 1.2, -1.5]}>
+        <sphereGeometry args={[0.55, 12, 12]} />
+        <meshStandardMaterial color="#8b5cf6" roughness={0.3} metalness={0.2} emissive="#8b5cf6" emissiveIntensity={0.25} />
+      </mesh>
+      <mesh ref={orbRef2} position={[-2, -0.6, -1.8]}>
+        <sphereGeometry args={[0.4, 12, 12]} />
+        <meshStandardMaterial color="#06b6d4" roughness={0.3} metalness={0.2} emissive="#06b6d4" emissiveIntensity={0.25} />
+      </mesh>
+    </>
+  );
 }
 
 function CursorTracker({ cursorRef }: { cursorRef: React.MutableRefObject<{ x: number; y: number }> }) {
@@ -124,38 +131,28 @@ function Scene({
   reducedMotion: boolean;
   cursorRef: React.MutableRefObject<{ x: number; y: number }>;
 }) {
-  if (reducedMotion) {
-    return null;
-  }
+  if (reducedMotion) return null;
 
   return (
     <>
-      <ambientLight intensity={0.3} />
-      <pointLight position={[5, 5, 5]} intensity={1.5} color="#3b82f6" />
-      <pointLight position={[-5, -5, 5]} intensity={1} color="#8b5cf6" />
-      <pointLight position={[0, 5, -5]} intensity={0.8} color="#06b6d4" />
+      <ambientLight intensity={0.5} />
+      <pointLight position={[4, 4, 4]} intensity={1.2} color="#3b82f6" />
+      <pointLight position={[-4, -2, 4]} intensity={0.9} color="#8b5cf6" />
+      <pointLight position={[0, 3, -4]} intensity={0.7} color="#06b6d4" />
 
       <CursorTracker cursorRef={cursorRef} />
 
-      <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.3}>
-        <GlassTorusKnot scrollProgress={sp} cursorRef={cursorRef} />
+      <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.25}>
+        <MainKnot scrollProgress={sp} cursorRef={cursorRef} />
       </Float>
 
-      <OrbitingIcosahedron color="#8b5cf6" speed={0.4} scale={0.5} offset={0} />
-      <OrbitingIcosahedron color="#06b6d4" speed={0.3} scale={0.35} offset={2.1} />
-      <OrbitingIcosahedron color="#10b981" speed={0.5} scale={0.3} offset={4.2} />
+      <SmallOrbiter color="#8b5cf6" speed={0.35} scale={0.45} offset={0} />
+      <SmallOrbiter color="#22d3ee" speed={0.28} scale={0.35} offset={2.1} />
 
-      <Sparkles count={100} scale={12} size={0.6} speed={0.4} color="#3b82f6" opacity={0.5} />
+      <SoftOrbs scrollProgress={sp} />
 
-      <Environment preset="city" />
-
-      <ContactShadows position={[0, -3, 0]} opacity={0.4} scale={10} blur={2} />
-
-      <EffectComposer>
-        <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} intensity={0.6} />
-      </EffectComposer>
-
-      <CameraRig cursorRef={cursorRef} />
+      {/* lighter sparkles */}
+      <Sparkles count={60} scale={10} size={0.5} speed={0.25} color="#60a5fa" opacity={0.45} />
     </>
   );
 }
@@ -194,8 +191,8 @@ export function Canvas3D() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0">
       <Canvas
-        camera={{ position: [0, 0, 7], fov: 60 }}
-        dpr={[1, 1.5]}
+        camera={{ position: [0, 0, 6.5], fov: 55 }}
+        dpr={[1, 1.2]}
         gl={{
           antialias: true,
           alpha: true,
