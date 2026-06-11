@@ -9,6 +9,7 @@ import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "./smooth-scroll";
 import { PageTransition } from "./page-transition";
 import { ErrorBoundary } from "./error-boundary";
+import { GrainOverlay } from "./grain-overlay";
 
 export function RootProvider({ children }: { children: ReactNode }) {
   const [preloaderDone, setPreloaderDone] = useState(false);
@@ -28,6 +29,7 @@ export function RootProvider({ children }: { children: ReactNode }) {
           </SmoothScroll>
           <Footer />
         </LanguageProvider>
+        <GrainOverlay />
       </div>
     </ErrorBoundary>
   );

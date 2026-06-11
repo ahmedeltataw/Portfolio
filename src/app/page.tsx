@@ -7,6 +7,7 @@ import { SkillsSnapshot } from "@/components/sections/skills-snapshot";
 import { Testimonials } from "@/components/sections/testimonials";
 import { CTASection } from "@/components/sections/cta-section";
 import { ScrollProgress } from "@/components/shared/scroll-progress";
+import { WaveDivider, DiagonalDivider, CurveDivider } from "@/components/shared/section-divider";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -18,8 +19,11 @@ export default function HomePage() {
     <>
       <ScrollProgress />
       <Hero />
+      <WaveDivider />
       <StatsSection />
+      <DiagonalDivider />
       <FeaturedProjects />
+      <CurveDivider />
       <SkillsSnapshot />
       <Testimonials />
       <CTASection />
