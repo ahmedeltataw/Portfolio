@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ReactNode } from "react";
+import { useState, useCallback, ReactNode } from "react";
 import { Preloader } from "./preloader";
 import { LanguageProvider } from "@/contexts/language-context";
 import { CustomCursor } from "./custom-cursor";
@@ -11,11 +11,12 @@ import { PageTransition } from "./page-transition";
 
 export function RootProvider({ children }: { children: ReactNode }) {
   const [preloaderDone, setPreloaderDone] = useState(false);
+  const handlePreloaderComplete = useCallback(() => setPreloaderDone(true), []);
 
   return (
     <>
       {!preloaderDone && (
-        <Preloader onComplete={() => setPreloaderDone(true)} minimumDuration={2800} />
+        <Preloader onComplete={handlePreloaderComplete} minimumDuration={2800} />
       )}
       <div style={{ opacity: preloaderDone ? 1 : 0, transition: "opacity 0.3s" }}>
         <LanguageProvider>

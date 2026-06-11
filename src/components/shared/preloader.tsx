@@ -61,6 +61,15 @@ export function Preloader({ onComplete, minimumDuration = 2500 }: PreloaderProps
   }, [minimumDuration, onComplete]);
 
   useEffect(() => {
+    if (isComplete) return;
+    const safetyTimer = setTimeout(() => {
+      setIsComplete(true);
+      onComplete?.();
+    }, 8000);
+    return () => clearTimeout(safetyTimer);
+  }, [isComplete, onComplete]);
+
+  useEffect(() => {
     if (!isComplete) {
       document.body.style.overflow = "hidden";
     } else {
@@ -114,7 +123,7 @@ export function Preloader({ onComplete, minimumDuration = 2500 }: PreloaderProps
 
         <p
           ref={subtextRef}
-          className="mt-3 text-sm sm:text-base text-muted-foreground/60 tracking-[0.15em] uppercase font-light opacity-0"
+          className="mt-3 text-sm sm:text-base text-muted-foreground/80 tracking-[0.15em] uppercase font-light opacity-0"
         >
           UI/UX Designer &amp; Frontend Developer
         </p>
