@@ -38,7 +38,7 @@ function TorusKnotMesh({ scrollProgress }: { scrollProgress: number }) {
 
   return (
     <mesh ref={meshRef} position={[0, 0, 0]}>
-      <torusKnotGeometry args={[1.8, 0.6, 200, 32]} />
+      <torusKnotGeometry args={[1.8, 0.6, 128, 24]} />
       <shaderMaterial
         ref={materialRef}
         transparent

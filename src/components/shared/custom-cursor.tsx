@@ -12,11 +12,13 @@ export function CustomCursor() {
   const [visible, setVisible] = useState(true);
   const [isTouchDevice, setIsTouchDevice] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const ringSize = 48;
   const dotSize = 10;
 
   useEffect(() => {
+    setMounted(true);
     const mqHover = window.matchMedia("(hover: hover) and (pointer: fine)");
     setIsTouchDevice(!mqHover.matches);
     const mqMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -85,7 +87,8 @@ export function CustomCursor() {
     };
   }, [isTouchDevice, reducedMotion, variant, handleMouseEnter, handleMouseLeave]);
 
-  if (isTouchDevice || reducedMotion) return null;
+  // Return null on server / before mount to avoid hydration mismatches
+  if (!mounted || isTouchDevice || reducedMotion) return null;
 
   const ringVariants: Record<CursorVariant, React.CSSProperties> = {
     default: {

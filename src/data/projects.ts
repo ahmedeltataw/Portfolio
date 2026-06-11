@@ -8,10 +8,10 @@ export const projects: Project[] = [
     description: "A comprehensive task and project management web application with a modern user interface",
     longDescription:
       "Designed and developed a full-featured task management web application for daily tasks and projects. Features an intuitive interface with project creation, task assignment, progress tracking, and performance analytics. Built with cutting-edge frontend technologies to ensure a seamless user experience.",
-    thumbnail: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1611224923853-80b023f02d71",
     images: [
-      "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1611224923853-80b023f02d71",
+      "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b",
     ],
     tags: ["UI/UX", "React", "Next.js"],
     category: "ui-ux",
@@ -35,10 +35,10 @@ export const projects: Project[] = [
     description: "A full-featured e-commerce platform with a seamless shopping experience",
     longDescription:
       "A comprehensive e-commerce platform with advanced search, filtering, and cart management features. Focused on optimizing the user experience throughout the shopping journey — from first product view to order completion.",
-    thumbnail: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d",
     images: [
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d",
+      "https://images.unsplash.com/photo-1563013544-824ae1b704d3",
     ],
     tags: ["UI/UX", "E-commerce", "Frontend"],
     category: "frontend",
@@ -62,10 +62,10 @@ export const projects: Project[] = [
     description: "An advanced data visualization and performance analytics dashboard",
     longDescription:
       "An interactive dashboard for visualizing and analyzing data. Features advanced charts, customizable reports, and data export capabilities. Designed to be an effective tool for data-driven decision making.",
-    thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
     images: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
     ],
     tags: ["Dashboard", "React", "Data Viz"],
     category: "fullstack",
@@ -89,10 +89,10 @@ export const projects: Project[] = [
     description: "A complete visual identity for a fintech startup",
     longDescription:
       "Designed a full visual identity for a fintech startup. Included logo design, color system, typography, visual elements, and a brand guidelines document. The identity was applied across the website and social media platforms.",
-    thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5",
     images: [
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5",
+      "https://images.unsplash.com/photo-1558655146-9f40138edfeb",
     ],
     tags: ["Branding", "Logo Design", "Visual Identity"],
     category: "branding",
@@ -116,10 +116,10 @@ export const projects: Project[] = [
     description: "An e-learning platform with an interactive learning experience",
     longDescription:
       "An e-learning platform offering interactive courses with progress tracking, assessment tests, and completion certificates. Designed for ease of use across all age groups with a focus on distance learning experience.",
-    thumbnail: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=400&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655",
     images: [
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655",
+      "https://images.unsplash.com/photo-1503676260728-1c00da094a0b",
     ],
     tags: ["UI/UX", "EdTech", "Frontend"],
     category: "ui-ux",
@@ -143,10 +143,10 @@ export const projects: Project[] = [
     description: "A weather web application with accurate forecasts and a beautiful interface",
     longDescription:
       "A web application for displaying weather conditions and forecasts. Features a beautiful interface with animated icons and weather-reflecting animations. Uses live data from open API with periodic updates.",
-    thumbnail: "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=600&h=400&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1592210454359-9043f067919b",
     images: [
-      "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=1200&h=800&fit=crop",
-      "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1592210454359-9043f067919b",
+      "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b",
     ],
     tags: ["React", "API", "Frontend"],
     category: "frontend",

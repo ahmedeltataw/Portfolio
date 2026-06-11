@@ -8,16 +8,15 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "./smooth-scroll";
 import { PageTransition } from "./page-transition";
+import { ErrorBoundary } from "./error-boundary";
 
 export function RootProvider({ children }: { children: ReactNode }) {
   const [preloaderDone, setPreloaderDone] = useState(false);
   const handlePreloaderComplete = useCallback(() => setPreloaderDone(true), []);
 
   return (
-    <>
-      {!preloaderDone && (
-        <Preloader onComplete={handlePreloaderComplete} minimumDuration={2800} />
-      )}
+    <ErrorBoundary>
+      {!preloaderDone && <Preloader onComplete={handlePreloaderComplete} />}
       <div style={{ opacity: preloaderDone ? 1 : 0, transition: "opacity 0.3s" }}>
         <LanguageProvider>
           <CustomCursor />
@@ -30,6 +29,6 @@ export function RootProvider({ children }: { children: ReactNode }) {
           <Footer />
         </LanguageProvider>
       </div>
-    </>
+    </ErrorBoundary>
   );
 }

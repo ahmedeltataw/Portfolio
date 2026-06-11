@@ -8,7 +8,7 @@ interface PreloaderProps {
   minimumDuration?: number;
 }
 
-export function Preloader({ onComplete, minimumDuration = 2500 }: PreloaderProps) {
+export function Preloader({ onComplete, minimumDuration = 1500 }: PreloaderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
@@ -65,7 +65,7 @@ export function Preloader({ onComplete, minimumDuration = 2500 }: PreloaderProps
     const safetyTimer = setTimeout(() => {
       setIsComplete(true);
       onComplete?.();
-    }, 8000);
+    }, 3500);
     return () => clearTimeout(safetyTimer);
   }, [isComplete, onComplete]);
 

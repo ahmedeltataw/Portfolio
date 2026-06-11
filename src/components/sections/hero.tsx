@@ -115,9 +115,9 @@ export function Hero() {
           <Canvas3D />
         </Suspense>
 
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 gradient-mesh" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-background to-accent/[0.03]" />
 
-        <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+        <svg className="absolute inset-0 w-full h-full opacity-[0.02]" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
               <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
@@ -126,16 +126,8 @@ export function Hero() {
           <rect width="100%" height="100%" fill="url(#grid)" />
         </svg>
 
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at center, hsl(var(--primary) / 0.08) 0%, transparent 70%)",
-          }}
-        />
-
-        <div className="absolute top-1/4 left-[10%] w-64 h-64 rounded-full bg-gradient-to-br from-primary/5 to-purple-500/5 blur-3xl animate-float-slow" />
-        <div className="absolute bottom-1/4 right-[8%] w-48 h-48 rounded-3xl bg-gradient-to-tr from-accent/5 to-primary/5 blur-2xl animate-float-slower" />
-        <div className="absolute top-[60%] left-[50%] w-72 h-32 rounded-full bg-gradient-to-r from-primary/3 to-transparent blur-3xl animate-float-slowest" />
+        <div className="absolute top-1/3 left-[10%] w-64 h-64 rounded-full bg-gradient-to-br from-primary/[0.03] to-purple-500/[0.03] blur-3xl animate-float-slow" />
+        <div className="absolute bottom-1/3 right-[10%] w-48 h-48 rounded-3xl bg-gradient-to-tr from-accent/[0.03] to-primary/[0.03] blur-2xl animate-float-slower" />
       </div>
 
       <div className="hero-badge hero-badge-1 absolute -top-12 left-1/4 hidden lg:block">
@@ -144,13 +136,13 @@ export function Hero() {
           Next.js 14
         </span>
       </div>
-      <div className="hero-badge hero-badge-2 absolute top-[15%] -right-8 hidden lg:block">
+      <div className="hero-badge hero-badge-2 absolute top-[12%] right-6 hidden lg:block">
         <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl">
           <span className="h-2 w-2 rounded-full bg-purple-500 animate-pulse-glow" />
           TypeScript
         </span>
       </div>
-      <div className="hero-badge hero-badge-3 absolute bottom-[15%] -left-8 hidden lg:block">
+      <div className="hero-badge hero-badge-3 absolute bottom-[12%] left-6 hidden lg:block">
         <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl">
           <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse-glow" />
           Tailwind CSS
@@ -176,7 +168,7 @@ export function Hero() {
           <div className="absolute inset-0 bg-gradient-radial from-primary/20 via-primary/5 to-transparent blur-[100px] scale-150 opacity-50 animate-pulse-glow" />
           <span
             className="hero-name block font-display text-display tracking-tight leading-none"
-            style={{ textShadow: "0 0 60px hsl(var(--primary) / 0.2), 0 0 120px hsl(var(--primary) / 0.1)" }}
+            style={{ textShadow: "0 0 30px hsl(var(--primary) / 0.15)" }}
           >
             <TextReveal
               className="font-display text-display tracking-tight"

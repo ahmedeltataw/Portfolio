@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display, Cairo } from "next/font/google";
+import { Inter, Instrument_Serif, Cairo } from "next/font/google";
 import { siteConfig } from "@/lib/constants";
 import { RootProvider } from "@/components/shared/root-provider";
 import "@/lib/gsap-register";
@@ -11,9 +11,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const playfairDisplay = Playfair_Display({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  weight: ["400"],
+  variable: "--font-instrument-serif",
   display: "swap",
 });
 
@@ -95,7 +96,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${playfairDisplay.variable} ${cairo.variable} font-sans antialiased`}
+        className={`${inter.variable} ${instrumentSerif.variable} ${cairo.variable} font-sans antialiased`}
       >
         <RootProvider>{children}</RootProvider>
       </body>
