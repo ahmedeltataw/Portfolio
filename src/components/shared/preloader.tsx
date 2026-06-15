@@ -123,7 +123,7 @@ export function Preloader({ onComplete, minimumDuration = 1500 }: PreloaderProps
 
         <p
           ref={subtextRef}
-          className="mt-3 text-sm sm:text-base text-muted-foreground/80 tracking-[0.15em] uppercase font-light opacity-0"
+          className="mt-3 text-sm sm:text-base text-muted-foreground/90 tracking-[0.15em] uppercase font-light opacity-0"
         >
           UI/UX Designer &amp; Frontend Developer
         </p>

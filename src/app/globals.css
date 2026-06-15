@@ -240,3 +240,57 @@ body {
 .animate-float-slower { animation: float-slower 16s ease-in-out infinite; }
 .animate-float-slowest { animation: float-slowest 20s ease-in-out infinite; }
 .animate-scroll-bounce { animation: scrollBounce 2s ease-in-out infinite; }
+
+/* === CSS Blob Animations (Task 301) === */
+@keyframes blob-slow {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+  }
+  25% {
+    transform: translate(30px, -40px) scale(1.05) rotate(5deg);
+    border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%;
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.95) rotate(-3deg);
+    border-radius: 50% 50% 40% 60% / 40% 50% 50% 60%;
+  }
+  75% {
+    transform: translate(15px, 30px) scale(1.02) rotate(4deg);
+    border-radius: 70% 30% 60% 40% / 50% 70% 30% 50%;
+  }
+}
+
+@keyframes blob-slower {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    border-radius: 50% 50% 60% 40% / 50% 40% 60% 50%;
+  }
+  50% {
+    transform: translate(-30px, 20px) scale(1.1);
+    border-radius: 40% 60% 50% 50% / 60% 50% 50% 40%;
+  }
+}
+
+@keyframes blob-slowest {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%;
+  }
+  50% {
+    transform: translate(25px, -35px) scale(1.08);
+    border-radius: 60% 40% 40% 60% / 40% 60% 40% 60%;
+  }
+}
+
+.animate-blob-slow {
+  animation: blob-slow 20s ease-in-out infinite;
+}
+
+.animate-blob-slower {
+  animation: blob-slower 16s ease-in-out infinite;
+}
+
+.animate-blob-slowest {
+  animation: blob-slowest 24s ease-in-out infinite;
+}

@@ -1,15 +1,12 @@
 "use client";
 
-import { useEffect, useRef, lazy, Suspense } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { siteConfig } from "@/lib/constants";
 import { MagneticButton } from "@/components/shared/magnetic-button";
 import { TextReveal } from "@/components/shared/text-reveal";
 import { useLanguage } from "@/contexts/language-context";
-
-const Canvas3D = lazy(() =>
-  import("@/components/shared/canvas-3d").then((mod) => ({ default: mod.Canvas3D }))
-);
+import { Canvas3D } from "@/components/shared/canvas-3d";
 
 export function Hero() {
   const { t } = useLanguage();
@@ -111,9 +108,7 @@ export function Hero() {
       className="relative min-h-screen overflow-hidden px-4 py-24"
     >
       <div className="absolute inset-0 pointer-events-none">
-        <Suspense fallback={null}>
-          <Canvas3D />
-        </Suspense>
+        <Canvas3D />
 
         <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] via-background to-accent/[0.04]" />
 
@@ -130,25 +125,25 @@ export function Hero() {
         <div className="absolute bottom-1/3 right-[5%] w-72 h-72 rounded-3xl bg-gradient-to-tr from-accent/[0.04] to-primary/[0.04] blur-2xl" />
       </div>
 
-      <div className="hero-badge hero-badge-1 absolute -top-12 left-1/4 hidden lg:block z-20">
+      <div className="hero-badge hero-badge-1 absolute top-4 left-1/2 -translate-x-1/2 hidden lg:block z-20">
         <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl border border-primary/10">
           <span className="h-2 w-2 rounded-full bg-primary animate-pulse-glow" />
           Next.js 14
         </span>
       </div>
-      <div className="hero-badge hero-badge-2 absolute top-[15%] right-[42%] hidden lg:block z-20">
+      <div className="hero-badge hero-badge-2 absolute top-[10%] right-4 md:right-8 lg:right-12 hidden lg:block z-20">
         <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl">
           <span className="h-2 w-2 rounded-full bg-purple-500 animate-pulse-glow" />
           TypeScript
         </span>
       </div>
-      <div className="hero-badge hero-badge-3 absolute bottom-[15%] left-[38%] hidden lg:block z-20">
+      <div className="hero-badge hero-badge-3 absolute bottom-[10%] left-4 md:left-8 lg:left-12 hidden lg:block z-20">
         <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl">
           <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse-glow" />
           Tailwind CSS
         </span>
       </div>
-      <div className="hero-badge hero-badge-4 absolute -bottom-12 right-1/4 hidden lg:block z-20">
+      <div className="hero-badge hero-badge-4 absolute bottom-20 right-4 md:right-8 lg:right-12 hidden lg:block z-20">
         <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl border border-accent/10">
           <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse-glow" />
           GSAP ScrollTrigger
