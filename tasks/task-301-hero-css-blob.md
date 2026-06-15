@@ -1,4 +1,4 @@
-<!-- status: pending -->
+<!-- status: completed -->
 # Hero 3D Fix — إزالة TorusKnot + استبدال بـ CSS Blob خفيف
 
 task_id: task-301

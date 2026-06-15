@@ -107,52 +107,27 @@ export function Hero() {
       data-hero-section
       className="relative min-h-screen overflow-hidden px-4 py-24"
     >
+      {/* Warm dark charcoal background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(ellipse at 80% 50%, hsl(45 100% 50% / 0.03) 0%, transparent 70%),
+            radial-gradient(ellipse at 20% 80%, hsl(30 100% 50% / 0.02) 0%, transparent 50%),
+            linear-gradient(180deg, #0a0a0f 0%, #0d0d14 50%, #0f0f1a 100%)
+          `,
+        }}
+      />
+
+      {/* Canvas3D warm blobs */}
       <div className="absolute inset-0 pointer-events-none">
         <Canvas3D />
-
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] via-background to-accent/[0.04]" />
-
-        <svg className="absolute inset-0 w-full h-full opacity-[0.02]" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-
-        <div className="absolute top-1/3 left-[5%] w-96 h-96 rounded-full bg-gradient-to-br from-primary/[0.04] to-purple-500/[0.04] blur-3xl" />
-        <div className="absolute bottom-1/3 right-[5%] w-72 h-72 rounded-3xl bg-gradient-to-tr from-accent/[0.04] to-primary/[0.04] blur-2xl" />
-      </div>
-
-      <div className="hero-badge hero-badge-1 absolute top-4 left-1/2 -translate-x-1/2 hidden lg:block z-20">
-        <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl border border-primary/10">
-          <span className="h-2 w-2 rounded-full bg-primary animate-pulse-glow" />
-          Next.js 14
-        </span>
-      </div>
-      <div className="hero-badge hero-badge-2 absolute top-[10%] right-4 md:right-8 lg:right-12 hidden lg:block z-20">
-        <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl">
-          <span className="h-2 w-2 rounded-full bg-purple-500 animate-pulse-glow" />
-          TypeScript
-        </span>
-      </div>
-      <div className="hero-badge hero-badge-3 absolute bottom-[10%] left-4 md:left-8 lg:left-12 hidden lg:block z-20">
-        <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl">
-          <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse-glow" />
-          Tailwind CSS
-        </span>
-      </div>
-      <div className="hero-badge hero-badge-4 absolute bottom-20 right-4 md:right-8 lg:right-12 hidden lg:block z-20">
-        <span className="inline-flex items-center gap-2 rounded-full glass-strong px-4 py-2 text-xs font-medium shadow-lg backdrop-blur-xl border border-accent/10">
-          <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse-glow" />
-          GSAP ScrollTrigger
-        </span>
       </div>
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 items-center min-h-screen max-w-7xl mx-auto">
+        {/* Left content */}
         <div className="flex flex-col justify-center lg:pr-8 order-2 lg:order-1">
-          <p className="hero-subtitle mb-6 inline-flex items-center gap-2.5 rounded-full glass-strong px-5 py-2 text-xs font-medium tracking-[0.15em] uppercase w-fit">
+          <p className="hero-subtitle mb-6 inline-flex items-center gap-2.5 rounded-full glass-strong px-5 py-2 text-xs font-medium tracking-[0.15em] uppercase w-fit text-slate-200">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
@@ -177,10 +152,10 @@ export function Hero() {
 
           <span className="hero-title-sub block mt-3 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wider text-gradient-primary">
             {siteConfig.title}
-            <span className="inline-block w-1 h-8 sm:h-10 md:h-12 bg-gradient-to-b from-primary to-purple-500 animate-pulse-glow ml-2 align-middle" />
+            <span className="inline-block w-1 h-8 sm:h-10 md:h-12 bg-gradient-to-b from-primary to-amber-500 animate-pulse-glow ml-2 align-middle" />
           </span>
 
-          <p className="hero-description mt-6 text-base sm:text-lg text-muted-foreground/80 max-w-lg leading-[1.8] tracking-wide">
+          <p className="hero-description mt-6 text-base sm:text-lg text-slate-300/90 max-w-lg leading-[1.8] tracking-wide">
             {siteConfig.description}
           </p>
 
@@ -201,15 +176,62 @@ export function Hero() {
           </div>
         </div>
 
+        {/* Right profile visual */}
         <div className="relative flex items-center justify-center min-h-[50vh] lg:min-h-screen order-1 lg:order-2">
+          <div className="relative w-[320px] h-[420px] sm:w-[380px] sm:h-[480px] lg:w-[420px] lg:h-[520px]">
+            {/* Arch background */}
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 500" fill="none">
+              <path
+                d="M0 500 C0 200, 100 0, 200 0 C300 0, 400 200, 400 500 Z"
+                fill="hsl(45 100% 50% / 0.08)"
+              />
+            </svg>
+
+            {/* Profile placeholder */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative">
+                <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center border border-amber-500/10">
+                  <span className="text-6xl sm:text-7xl font-serif text-amber-500/40">AE</span>
+                </div>
+                <div className="absolute -inset-8 bg-gradient-to-br from-amber-500/10 to-orange-500/10 blur-2xl rounded-full -z-10" />
+              </div>
+            </div>
+
+            {/* Floating tech badges around the profile photo */}
+            <div className="hero-badge hero-badge-1 absolute -top-2 right-8 sm:right-12 z-20">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-xl px-4 py-2 text-xs font-medium border border-white/10 shadow-lg">
+                <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse-glow" />
+                Next.js 14
+              </span>
+            </div>
+            <div className="hero-badge hero-badge-2 absolute top-[28%] -left-2 sm:-left-6 z-20">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-xl px-4 py-2 text-xs font-medium border border-white/10 shadow-lg">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse-glow" />
+                TypeScript
+              </span>
+            </div>
+            <div className="hero-badge hero-badge-3 absolute bottom-[28%] -right-2 sm:-right-4 z-20">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-xl px-4 py-2 text-xs font-medium border border-white/10 shadow-lg">
+                <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse-glow" />
+                Tailwind CSS
+              </span>
+            </div>
+            <div className="hero-badge hero-badge-4 absolute bottom-10 left-6 sm:left-10 z-20">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-xl px-4 py-2 text-xs font-medium border border-white/10 shadow-lg">
+                <span className="h-2 w-2 rounded-full bg-rose-400 animate-pulse-glow" />
+                GSAP
+              </span>
+            </div>
+          </div>
+
+          {/* Soft fade edge blending into the background */}
           <div className="absolute inset-0 bg-gradient-to-l from-background via-transparent to-transparent z-10 pointer-events-none lg:left-0" />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
         </div>
       </div>
 
-      <div className="hero-scroll absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50 z-20">
+      <div className="hero-scroll absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-400/70 z-20">
         <span className="text-[10px] tracking-[0.2em] uppercase font-light">Scroll</span>
-        <div className="w-5 h-8 rounded-full border border-muted-foreground/20 flex items-start justify-center p-1.5">
+        <div className="w-5 h-8 rounded-full border border-slate-500/30 flex items-start justify-center p-1.5">
           <div className="w-1 h-2 rounded-full bg-primary animate-scroll-bounce" />
         </div>
       </div>

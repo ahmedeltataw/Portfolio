@@ -1,4 +1,4 @@
-<!-- status: pending -->
+<!-- status: completed -->
 # Hero Redesign — Split Layout + Profile Photo + Warm Dark
 
 task_id: task-401
