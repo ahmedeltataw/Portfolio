@@ -65,7 +65,7 @@ export function FeaturedProjects() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center px-4 py-24 overflow-hidden"
+      className="relative flex items-center justify-center px-4 py-24 lg:py-32 overflow-hidden"
     >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/5 to-background" />

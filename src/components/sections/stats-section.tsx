@@ -97,7 +97,7 @@ export function StatsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[70vh] flex items-center justify-center px-4 py-32 overflow-hidden"
+      className="relative flex items-center justify-center px-4 py-24 lg:py-32 overflow-hidden"
     >
       <div ref={bgRef} className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-gradient-to-br from-primary/3 to-purple-500/3 blur-3xl" />

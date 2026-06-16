@@ -126,8 +126,8 @@ export function Hero() {
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 items-center min-h-screen max-w-7xl mx-auto">
         {/* Left content */}
-        <div className="flex flex-col justify-center lg:pr-8 order-2 lg:order-1">
-          <p className="hero-subtitle mb-6 inline-flex items-center gap-2.5 rounded-full glass-strong px-5 py-2 text-xs font-medium tracking-[0.15em] uppercase w-fit text-slate-200">
+        <div className="flex flex-col justify-center lg:pr-8 order-1 pb-8 lg:pb-0">
+          <p className="hero-subtitle mb-6 inline-flex items-center gap-2.5 rounded-full glass-strong px-5 py-2 text-xs font-medium tracking-[0.15em] uppercase w-fit text-muted-foreground border border-border/20">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
@@ -144,7 +144,7 @@ export function Hero() {
                 textShadow: "0 0 40px hsl(var(--primary) / 0.2)",
               }}
             >
-              <TextReveal className="font-display tracking-tight" as="span">
+              <TextReveal className="font-display tracking-tight bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent" as="span">
                 {siteConfig.name}
               </TextReveal>
             </span>
@@ -155,7 +155,7 @@ export function Hero() {
             <span className="inline-block w-1 h-8 sm:h-10 md:h-12 bg-gradient-to-b from-primary to-amber-500 animate-pulse-glow ml-2 align-middle" />
           </span>
 
-          <p className="hero-description mt-6 text-base sm:text-lg text-slate-300/90 max-w-lg leading-[1.8] tracking-wide">
+          <p className="hero-description mt-6 text-base sm:text-lg text-muted-foreground/80 max-w-lg leading-[1.8] tracking-wide">
             {siteConfig.description}
           </p>
 
@@ -174,10 +174,27 @@ export function Hero() {
               </span>
             </MagneticButton>
           </div>
+
+          {/* Mobile profile indicator */}
+          <div className="lg:hidden mt-12 flex items-center justify-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center border border-amber-500/10">
+              <span className="text-2xl font-serif text-amber-500/60">AE</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 backdrop-blur-xl px-3 py-1 text-xs font-medium border border-white/10">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+                Next.js 14
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 backdrop-blur-xl px-3 py-1 text-xs font-medium border border-white/10">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                TypeScript
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* Right profile visual */}
-        <div className="relative flex items-center justify-center min-h-[50vh] lg:min-h-screen order-1 lg:order-2">
+        {/* Right profile visual — hidden on mobile */}
+        <div className="hidden lg:flex relative items-center justify-center min-h-screen order-2">
           <div className="relative w-[320px] h-[420px] sm:w-[380px] sm:h-[480px] lg:w-[420px] lg:h-[520px]">
             {/* Arch background */}
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 500" fill="none">
@@ -229,9 +246,9 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="hero-scroll absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-400/70 z-20">
+      <div className="hero-scroll hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-muted-foreground/70 z-20">
         <span className="text-[10px] tracking-[0.2em] uppercase font-light">Scroll</span>
-        <div className="w-5 h-8 rounded-full border border-slate-500/30 flex items-start justify-center p-1.5">
+        <div className="w-5 h-8 rounded-full border border-border/30 flex items-start justify-center p-1.5">
           <div className="w-1 h-2 rounded-full bg-primary animate-scroll-bounce" />
         </div>
       </div>

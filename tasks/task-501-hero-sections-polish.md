@@ -1,4 +1,4 @@
-<!-- status: pending -->
+<!-- status: completed -->
 # Hero & Sections Polish — Light Mode + Responsive + Section Heights
 
 task_id: task-501

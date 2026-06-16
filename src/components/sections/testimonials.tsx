@@ -28,7 +28,7 @@ export function Testimonials() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[70vh] flex items-center justify-center px-4 py-24 opacity-0 translate-y-8"
+      className="relative flex items-center justify-center px-4 py-24 lg:py-32 opacity-0 translate-y-8"
     >
       <div className="max-w-3xl w-full text-center">
         <svg

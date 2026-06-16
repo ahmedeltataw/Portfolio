@@ -29,7 +29,7 @@ export function CTASection() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center px-4 py-24 opacity-0 translate-y-8"
+      className="relative flex items-center justify-center px-4 py-24 lg:py-32 opacity-0 translate-y-8"
     >
       <div className="max-w-2xl w-full text-center">
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl tracking-tight mb-6 text-gradient">
