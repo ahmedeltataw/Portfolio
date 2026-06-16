@@ -40,11 +40,11 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md transition-transform duration-300",
+        "fixed top-0 z-50 w-full border-b border-border/80 bg-background/95 backdrop-blur-xl transition-transform duration-300 shadow-lg shadow-black/10",
         !isVisible && "-translate-y-full"
       )}
     >
-      <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4" aria-label={t.nav_menu_open}>
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6" aria-label={t.nav_menu_open}>
         <Link
           href="/"
           className="font-display text-xl tracking-tight hover:text-primary transition-colors"
