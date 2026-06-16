@@ -112,10 +112,9 @@ export function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            radial-gradient(ellipse at 80% 30%, hsl(45 100% 50% / 0.04) 0%, transparent 60%),
-            radial-gradient(ellipse at 20% 80%, hsl(30 100% 50% / 0.03) 0%, transparent 50%),
-            radial-gradient(ellipse at 50% 50%, hsl(25 30% 8% / 0.5) 0%, transparent 80%),
-            linear-gradient(180deg, hsl(30 30% 6%) 0%, hsl(240 20% 5%) 50%, hsl(240 25% 4%) 100%)
+            radial-gradient(ellipse at 80% 30%, hsl(45 100% 50% / 0.06) 0%, transparent 60%),
+            radial-gradient(ellipse at 20% 80%, hsl(30 100% 50% / 0.04) 0%, transparent 50%),
+            linear-gradient(180deg, hsl(30 20% 8%) 0%, hsl(240 15% 6%) 50%, hsl(240 20% 5%) 100%)
           `,
         }}
       />
@@ -151,12 +150,12 @@ export function Hero() {
             </span>
           </div>
 
-          <span className="hero-title-sub block mt-3 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wider text-gradient-primary">
+          <span className="hero-title-sub block mt-3 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wider">
             {siteConfig.title}
-            <span className="inline-block w-1 h-8 sm:h-10 md:h-12 bg-gradient-to-b from-primary to-amber-500 animate-pulse-glow ml-2 align-middle" />
+            <span className="inline-block w-[3px] h-[1em] bg-primary/70 animate-pulse-glow ml-1 align-middle" />
           </span>
 
-          <p className="hero-description mt-6 text-base sm:text-lg text-muted-foreground/80 max-w-lg leading-[1.8] tracking-wide">
+          <p className="hero-description mt-6 text-base sm:text-lg text-foreground/80 max-w-lg leading-[1.8] tracking-wide">
             {siteConfig.description}
           </p>
 
@@ -247,10 +246,10 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="hero-scroll hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-muted-foreground/70 z-20">
-        <span className="text-[10px] tracking-[0.2em] uppercase font-light">Scroll</span>
-        <div className="w-5 h-8 rounded-full border border-border/30 flex items-start justify-center p-1.5">
-          <div className="w-1 h-2 rounded-full bg-primary animate-scroll-bounce" />
+      <div className="hero-scroll hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-foreground/50 z-20">
+        <span className="text-[11px] tracking-[0.25em] uppercase font-medium">Scroll</span>
+        <div className="w-5 h-8 rounded-full border border-foreground/20 flex items-start justify-center p-1.5">
+          <div className="w-1.5 h-2.5 rounded-full bg-primary/70 animate-scroll-bounce" />
         </div>
       </div>
     </section>

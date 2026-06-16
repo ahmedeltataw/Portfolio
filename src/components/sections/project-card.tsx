@@ -62,7 +62,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <Link href={`/projects/${project.slug}`} className="block group">
       <div
         ref={cardRef}
-        className="project-card relative overflow-hidden rounded-2xl bg-card/30 border border-border/30 backdrop-blur-sm transition-all duration-500"
+        className="project-card relative overflow-hidden rounded-2xl bg-card/60 border border-primary/10 backdrop-blur-sm transition-all duration-500"
         style={{
           transform: isHovering
             ? `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`
