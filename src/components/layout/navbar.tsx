@@ -40,7 +40,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full border-b border-primary/15 bg-background/95 backdrop-blur-xl transition-transform duration-300 shadow-lg shadow-black/20",
+        "fixed top-0 z-50 w-full border-b-[1.5px] border-primary/40 bg-background/95 backdrop-blur-xl transition-transform duration-300 shadow-lg shadow-black/20",
         !isVisible && "-translate-y-full"
       )}
     >
