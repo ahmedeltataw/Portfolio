@@ -15,18 +15,21 @@ export function Canvas3D() {
       <div className="absolute -top-[10%] -right-[5%] w-[700px] h-[700px] rounded-full
         bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent
         animate-blob-slow blur-[80px]"
+        style={{ willChange: 'transform, border-radius' }}
       />
 
       {/* Blob 2 — warm rose/amber in the middle-left */}
       <div className="absolute top-[40%] left-[10%] w-[300px] h-[300px] rounded-full
         bg-gradient-to-tr from-rose-500/8 via-amber-500/5 to-transparent
         animate-blob-slower blur-[60px]"
+        style={{ willChange: 'transform, border-radius' }}
       />
 
       {/* Blob 3 — soft amber at the bottom-right */}
       <div className="absolute -bottom-[5%] right-[20%] w-[500px] h-[400px] rounded-full
         bg-gradient-to-tl from-amber-500/8 via-transparent to-transparent
         animate-blob-slowest blur-[100px]"
+        style={{ willChange: 'transform, border-radius' }}
       />
 
       {/* Warm glow behind the profile photo */}

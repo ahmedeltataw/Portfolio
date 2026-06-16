@@ -107,14 +107,15 @@ export function Hero() {
       data-hero-section
       className="relative min-h-screen overflow-hidden px-4 py-24"
     >
-      {/* Warm dark charcoal background */}
+      {/* Warm dark charcoal background with subtle amber undertone */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            radial-gradient(ellipse at 80% 50%, hsl(45 100% 50% / 0.03) 0%, transparent 70%),
-            radial-gradient(ellipse at 20% 80%, hsl(30 100% 50% / 0.02) 0%, transparent 50%),
-            linear-gradient(180deg, #0a0a0f 0%, #0d0d14 50%, #0f0f1a 100%)
+            radial-gradient(ellipse at 80% 30%, hsl(45 100% 50% / 0.04) 0%, transparent 60%),
+            radial-gradient(ellipse at 20% 80%, hsl(30 100% 50% / 0.03) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 50%, hsl(25 30% 8% / 0.5) 0%, transparent 80%),
+            linear-gradient(180deg, hsl(30 30% 6%) 0%, hsl(240 20% 5%) 50%, hsl(240 25% 4%) 100%)
           `,
         }}
       />
@@ -161,14 +162,14 @@ export function Hero() {
 
           <div className="hero-cta mt-8 flex flex-col sm:flex-row gap-4">
             <MagneticButton as="a" href="/projects">
-              <span className="relative inline-flex h-12 items-center justify-center rounded-xl bg-primary px-10 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:scale-105 gap-2.5 overflow-hidden group">
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span className="relative inline-flex h-12 items-center justify-center rounded-xl bg-primary px-10 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-primary/40 hover:scale-105 gap-2.5 overflow-hidden group">
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                 {t.hero.cta_work}
               </span>
             </MagneticButton>
             <MagneticButton as="a" href="/contact">
-              <span className="inline-flex h-12 items-center justify-center rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm px-10 text-sm font-medium transition-all duration-300 hover:border-primary/30 hover:bg-card hover:shadow-lg hover:shadow-primary/10 gap-2.5">
+              <span className="inline-flex h-12 items-center justify-center rounded-xl border border-rose-500/30 bg-card/50 backdrop-blur-sm px-10 text-sm font-medium text-foreground/90 transition-all duration-300 hover:bg-card hover:border-rose-500/50 hover:shadow-lg hover:shadow-rose-500/10 gap-2.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 {t.hero.cta_contact}
               </span>
@@ -200,7 +201,7 @@ export function Hero() {
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 500" fill="none">
               <path
                 d="M0 500 C0 200, 100 0, 200 0 C300 0, 400 200, 400 500 Z"
-                fill="hsl(45 100% 50% / 0.08)"
+                fill="hsl(45 100% 50% / 0.15)"
               />
             </svg>
 
@@ -216,25 +217,25 @@ export function Hero() {
 
             {/* Floating tech badges around the profile photo */}
             <div className="hero-badge hero-badge-1 absolute -top-2 right-8 sm:right-12 z-20">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-xl px-4 py-2 text-xs font-medium border border-white/10 shadow-lg">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-xl px-4 py-2 text-xs font-semibold border border-white/20 shadow-lg shadow-black/20">
                 <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse-glow" />
                 Next.js 14
               </span>
             </div>
             <div className="hero-badge hero-badge-2 absolute top-[28%] -left-2 sm:-left-6 z-20">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-xl px-4 py-2 text-xs font-medium border border-white/10 shadow-lg">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-xl px-4 py-2 text-xs font-semibold border border-white/20 shadow-lg shadow-black/20">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse-glow" />
                 TypeScript
               </span>
             </div>
             <div className="hero-badge hero-badge-3 absolute bottom-[28%] -right-2 sm:-right-4 z-20">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-xl px-4 py-2 text-xs font-medium border border-white/10 shadow-lg">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-xl px-4 py-2 text-xs font-semibold border border-white/20 shadow-lg shadow-black/20">
                 <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse-glow" />
                 Tailwind CSS
               </span>
             </div>
             <div className="hero-badge hero-badge-4 absolute bottom-10 left-6 sm:left-10 z-20">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/5 backdrop-blur-xl px-4 py-2 text-xs font-medium border border-white/10 shadow-lg">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-xl px-4 py-2 text-xs font-semibold border border-white/20 shadow-lg shadow-black/20">
                 <span className="h-2 w-2 rounded-full bg-rose-400 animate-pulse-glow" />
                 GSAP
               </span>

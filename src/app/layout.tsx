@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif, Cairo } from "next/font/google";
 import { siteConfig } from "@/lib/constants";
 import { RootProvider } from "@/components/shared/root-provider";
+import { GrainOverlay } from "@/components/shared/grain-overlay";
 import "@/lib/gsap-register";
 import "./globals.css";
 
@@ -98,7 +99,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${instrumentSerif.variable} ${cairo.variable} font-sans antialiased`}
       >
-        <RootProvider>{children}</RootProvider>
+        <RootProvider>
+          <GrainOverlay />
+          {children}
+        </RootProvider>
       </body>
     </html>
   );

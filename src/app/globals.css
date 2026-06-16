@@ -4,39 +4,45 @@
 
 @layer base {
   :root {
-    --background: 40 30% 98%;
-    --foreground: 25 25% 15%;
-    --card: 0 0% 100%;
-    --card-foreground: 25 25% 15%;
-    --primary: 45 100% 50%;
-    --primary-foreground: 25 25% 15%;
-    --secondary: 30 80% 95%;
-    --secondary-foreground: 25 25% 15%;
-    --accent: 45 60% 90%;
-    --accent-foreground: 25 25% 15%;
-    --muted: 45 30% 90%;
-    --muted-foreground: 25 15% 45%;
-    --border: 45 20% 85%;
-    --ring: 45 100% 50%;
-    --radius: 0.75rem;
-  }
+      --background: 40 30% 98%;
+      --foreground: 25 25% 15%;
+      --card: 0 0% 100%;
+      --card-foreground: 25 25% 15%;
+      --primary: 45 100% 50%;
+      --primary-foreground: 25 25% 15%;
+      --secondary: 30 80% 95%;
+      --secondary-foreground: 25 25% 15%;
+      --accent: 45 60% 90%;
+      --accent-foreground: 25 25% 15%;
+      --muted: 45 30% 90%;
+      --muted-foreground: 25 15% 45%;
+      --border: 45 20% 85%;
+      --ring: 45 100% 50%;
+      --radius: 0.75rem;
+      /* Signature accented color – used sparingly so it stays special */
+      --accent-rose: 350 80% 55%;
+      --accent-mint: 160 50% 45%;
+    }
 
-  .dark {
-    --background: 240 33% 4%;
-    --foreground: 40 20% 94%;
-    --card: 240 25% 5%;
-    --card-foreground: 40 20% 94%;
-    --primary: 45 100% 50%;
-    --primary-foreground: 240 33% 4%;
-    --secondary: 30 100% 50%;
-    --secondary-foreground: 240 33% 4%;
-    --accent: 30 60% 15%;
-    --accent-foreground: 40 20% 94%;
-    --muted: 240 20% 8%;
-    --muted-foreground: 35 10% 65%;
-    --border: 35 20% 15%;
-    --ring: 45 100% 50%;
-  }
+    .dark {
+      --background: 240 33% 4%;
+      --foreground: 40 20% 94%;
+      --card: 240 25% 5%;
+      --card-foreground: 40 20% 94%;
+      --primary: 45 100% 50%;
+      --primary-foreground: 240 33% 4%;
+      --secondary: 30 100% 50%;
+      --secondary-foreground: 240 33% 4%;
+      --accent: 30 60% 15%;
+      --accent-foreground: 40 20% 94%;
+      --muted: 240 20% 8%;
+      --muted-foreground: 35 10% 65%;
+      --border: 35 20% 15%;
+      --ring: 45 100% 50%;
+      /* Signature accented colors – warm/coral + cool/mint */
+      --accent-rose: 350 80% 55%;
+      --accent-mint: 160 50% 45%;
+    }
 }
 
 * {
